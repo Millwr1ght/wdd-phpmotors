@@ -8,20 +8,17 @@
     <title>Document</title>
 </head>
 <body>
-    <header>
-        <h1>content</h1>
-    </header>
-    <nav>
-        <a href="/phpmotors/">home</a></li>
-        <a href="/phpmotors/template.php">template</a>
-    </nav>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/header.php'; ?>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; ?>
 
     <main>
-        <h2>main content</h2>
+        <h1>Welcome to PHP Motors!</h1>
+
+        <section class="hero-banner"></section>
+        <section class="upgrades"></section>
+        <section class="reviews"></section>
     </main>
 
-    <footer>
-        <h2>bottom of page content</h2>
-    </footer>
+    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>
 </body>
 </html>

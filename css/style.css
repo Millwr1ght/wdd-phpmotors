@@ -57,13 +57,13 @@ nav a.active {
     color: var(--dark-gray);
 }
 
-main {}
-section {}
+/* main {} */
+/* section {} */
 footer {
     text-align: center;
 }
 
-h1,h2,h3,h4,h5,h6 {}
+/* h1,h2,h3,h4,h5,h6 {} */
 
 a, a:hover, a:visited, a:active {
     color: inherit;
@@ -73,7 +73,14 @@ a, a:hover, a:visited, a:active {
     padding: 12px;
 }
 
-button {}
+button {
+    background-color: inherit;
+    margin: auto;
+    display: block;
+    border: 0;
+    font-size: var(--font-big);
+    cursor: pointer;
+}
 
 
 /* medium screen styling */
