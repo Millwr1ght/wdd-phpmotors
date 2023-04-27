@@ -1,0 +1,103 @@
+:root {
+    /* colours */
+    --main-white: #ffffff;
+    --light-gray: #bababa;
+    --medium-gray: #8d8d8d;
+    --dark-gray: #3a3a3a;
+    --light-blue: #a6cbeb;
+    --dark-blue: #4c96d7;
+
+    /* fonts */
+    --font-body: Arial, Helvetica, sans-serif;
+    --font-headline: "Arial Narrow Bold", sans-serif;
+    --font-base: 18px;
+    --font-big: .8em;
+    --font-small: 1.2em;
+
+    /* other variables */
+    --background-image: url("/phpmotors/images/site/checkerboard.jpg");
+}
+
+/* mobile styling */
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+html {
+    background-color: var(--main-white);
+    margin: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: var(--font-base);
+    color: var(--dark-grey);
+    margin: 0;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+nav {
+    background-color: var(--dark-gray);
+    color: var(--main-white);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+nav a {
+    text-decoration: none;
+}
+nav a.active {
+    background-color: var(--dark-blue);
+    color: var(--dark-gray);
+}
+
+main {}
+section {}
+footer {
+    text-align: center;
+}
+
+h1,h2,h3,h4,h5,h6 {}
+
+a, a:hover, a:visited, a:active {
+    color: inherit;
+    text-decoration: none;
+    font-size: 17px;
+    width: 100%;
+    padding: 12px;
+}
+
+button {}
+
+
+/* medium screen styling */
+@media screen and (min-width: 720px) {
+    
+    html {
+        background-image: var(--background-image);
+    }
+
+    body {
+        background: var(--main-white);
+        max-width: 1080px;
+    }
+
+    nav a {
+        padding: 16px;
+        width: auto;
+        text-align: center;
+        float: left;
+    }
+}
+
+
+/* large screen styling (everything in medium plus what's below) */
+@media screen and (min-width: 1250px) {
+    
+}
