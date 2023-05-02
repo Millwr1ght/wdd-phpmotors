@@ -5,7 +5,7 @@
     <p>All images used are believed to be in "Fair Use". Please notify the author if any are not and they will be
         removed.</p>
     <p id="last-updated">Last updated: <?=$pageLastUpdated?></p>
-    <a href="/phpmotors/template.php">site template</a>
+    <a href="/phpmotors/view/template.php">site template</a>
     <div class="banner-container divider-top">
         <img id="finish_line" class="banner-checkerboard" src="/phpmotors/images/site/checkerboard.jpg"
             alt="Checkered flag banner">

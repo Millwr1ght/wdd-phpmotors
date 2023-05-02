@@ -52,6 +52,7 @@ header .login {
 
 /* --nav top-- */
 nav {
+    margin-bottom: 1em;
     background-color: var(--dark-gray);
     color: var(--main-white);
     display: flex;
@@ -90,8 +91,13 @@ nav a.active {
 /* --footer-- */
 footer {
     margin-top: auto;
+    padding: 1em;
     font-size: var(--font-small);
     text-align: center;
+}
+
+footer p {
+    margin: 0 auto 1em;
 }
 
 footer .banner-container {
@@ -132,7 +138,7 @@ button {
 }
 
 main {
-    margin: auto;
+    margin: 0 auto;
 }
 
 /* content styling */
@@ -258,9 +264,6 @@ section.upgrades .card-img {
     footer {
         margin-top: 0;
     }
-    footer p {
-        margin: 0 auto;
-    }
 
     /* hide bottom banner, show last updated */
     footer .banner-container {
@@ -308,7 +311,7 @@ section.upgrades .card-img {
     }
 
     main {
-        margin: auto;
+        margin: 0 2em;
     }
 
     div.hero-banner {

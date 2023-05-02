@@ -1,3 +1,8 @@
+<?php require_once 'library/connections.php'?>
+<?php $link = createConnection() ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
