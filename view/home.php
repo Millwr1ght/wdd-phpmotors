@@ -1,5 +1,5 @@
-<?php require_once 'library/connections.php'?>
-<?php $link = createConnection() ?>
+<?php //require_once 'library/connections.php'?>
+<?php //$link = createConnection() ?>
 
 
 
