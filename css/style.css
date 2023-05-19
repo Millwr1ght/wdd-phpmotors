@@ -35,9 +35,30 @@ body {
     font-size: var(--font-base);
     color: var(--dark-gray);
     margin: 0;
-    min-height: 100svh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+/* h1,h2,h3,h4,h5,h6 {} */
+a,
+a:hover,
+a:visited,
+a:active {
+    color: inherit;
+    text-decoration: none;
+    width: 100%;
+    padding: 12px;
+}
+
+button {
+    background-color: inherit;
+    margin: auto;
+    display: block;
+    border: 0;
+    font-size: var(--font-big);
+    color: var(--dark-gray);
+    cursor: pointer;
 }
 
 header {
@@ -46,8 +67,8 @@ header {
     justify-content: space-between;
 }
 
-header .login {
-    padding: 1em;
+header .login a {
+    padding-right: 1em;
 }
 
 /* --nav top-- */
@@ -74,8 +95,7 @@ nav a {
 
 nav a.active,
 nav a:hover {
-    margin: -4px 0;
-    padding: 16px 10px;
+    margin: -6px 0;
 }
 
 nav a:hover {
@@ -91,13 +111,16 @@ nav a.active {
 /* --footer-- */
 footer {
     margin-top: auto;
-    padding: 1em;
     font-size: var(--font-small);
     text-align: center;
 }
 
 footer p {
     margin: 0 auto 1em;
+}
+
+footer .footer-copy {
+    padding: 1em;
 }
 
 footer .banner-container {
@@ -115,40 +138,38 @@ footer #last-updated {
     display: none;
 }
 
-/* h1,h2,h3,h4,h5,h6 {} */
-
-a,
-a:hover,
-a:visited,
-a:active {
-    color: inherit;
-    text-decoration: none;
-    width: 100%;
-    padding: 12px;
-}
-
-button {
-    background-color: inherit;
-    margin: auto;
-    display: block;
-    border: 0;
-    font-size: var(--font-big);
-    color: var(--dark-gray);
-    cursor: pointer;
-}
-
 main {
     margin: 0 auto;
+    padding-bottom: 2.5rem;
 }
 
 /* content styling */
 
+/* site-wide login and registration pages */
+form.login-form,
+form.register-form {
+    display: block;
+    margin-top: 0em;
+}
+
+form.login-form,
+form.register-form,
+form input {
+    margin-bottom: 0.5em;
+}
+
+.register-link {
+    margin-bottom: 2em;
+}
+
 /* home page */
+/* home page hero banner */
 div.hero-banner,
 div.main-content {
     margin: 0 auto;
     max-width: 500px;
 }
+
 div.hero-banner {
     font-size: var(--font-small);
     color: var(--dark-gray);
@@ -156,29 +177,35 @@ div.hero-banner {
     grid-template-columns: 250px 1fr;
     grid-template-rows: 1fr 100px;
 }
+
 div.hero-banner aside {
     grid-area: 1 / 1 / 2 / 2;
     z-index: 4;
     margin-left: 2em;
 }
+
 div.hero-banner .call-heading {
     margin: 0;
 }
+
 div.hero-banner aside p {
     margin: 0;
 }
+
 div.hero-banner #hero-delorean {
     grid-area: 1 / 1 / 2 / 3;
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
 }
+
 div.hero-banner #hero-call {
     grid-area: 2 / 1 / 3 / 3;
     justify-self: center;
     align-self: center;
 }
 
+/* home page main sections  */
 div.main-content {
     display: block;
 }
@@ -190,6 +217,7 @@ section.reviews li {
 section.upgrades {
     margin-bottom: 1em;
 }
+
 section.upgrades .card-collection {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -198,13 +226,16 @@ section.upgrades .card-collection {
     align-items: center;
     margin: 0 0.5em 0.5em;
 }
+
 section.upgrades .card {
     width: 100%;
     text-align: center;
 }
+
 section.upgrades .card a {
     padding: 0;
 }
+
 section.upgrades .card-img {
     background: var(--dark-blue);
     border: 2px solid var(--dark-gray);
@@ -218,8 +249,7 @@ section.upgrades .card-img {
 /* section.upgrades .card-img img {} */
 /* section.upgrades .card a {} */
 
-
-/* medium (and large) screen styling */
+/* medium (and large) screen styling ----------------*/
 @media only screen and (min-width: 768px) {
 
     html {
@@ -274,6 +304,7 @@ section.upgrades .card-img {
         display: block;
     }
 
+    /* home page hero banner */
     div.hero-banner, 
     div.main-content {
         max-width: 900px;
@@ -292,18 +323,18 @@ section.upgrades .card-img {
         grid-template-columns: 1fr 1fr;
         gap: 1em;
     }
+
     div.main-content section.upgrades {
         grid-area: 1/1/2/2;
     }
+
     div.main-content section.reviews {
         grid-area: 1/2/2/3;
     }
-
-
 }
 
 
-/* (just) large screen styling */
+/* (just) large screen styling ----------------*/
 @media only screen and (min-width: 1250px) {
     body {
         max-width: 1080px;
@@ -314,18 +345,22 @@ section.upgrades .card-img {
         margin: 0 2em;
     }
 
+    /* home page hero banner */
     div.hero-banner {
         grid-template-rows: 5em 75px 1fr;
     }
+
     div.hero-banner aside {
         grid-area: 1/1/2/2;
         margin-left: 0;
     }
+
     div.hero-banner #hero-call {
         grid-area: 2/1/3/2;
         max-width: 66%;
         justify-self: left;
     }
+
     div.hero-banner #hero-delorean {
         grid-area: 1/1/4/3;
     }
@@ -333,7 +368,6 @@ section.upgrades .card-img {
     div.main-content {
         margin: 0 auto;
     }
-
 }
 
 /* special classes */
