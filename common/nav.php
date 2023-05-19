@@ -16,7 +16,7 @@
 <nav class="nav-top" id="page-nav">
 
     <?php foreach ($pages as $pageId => $pageName): ?>
-    <a href="/phpmotors/<?=($pageId == 'home' ? '' : $pageId);?>"<?=($pageId == $currentPageId) ? ' class="active"' : '' ;?>><?=$pageName?></a>
+    <a href="/phpmotors/<?=($pageId == 'home' ? 'index.php' : $pageId);?>"<?=($pageId == $currentPageId) ? ' class="active"' : '' ;?>><?=$pageName?></a>
     <?php endforeach; ?>
     
     <!-- <a href="/phpmotors/" class="active">Home</a>

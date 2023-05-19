@@ -1,8 +1,3 @@
-<?php //require_once 'library/connections.php'?>
-<?php //$link = createConnection() ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +11,7 @@
 
 <body>
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/header.php'; ?>
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; ?>
+    <?php echo $nav_list; //require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; ?>
 
     <main>
         <h1>Welcome to PHP Motors!</h1>
