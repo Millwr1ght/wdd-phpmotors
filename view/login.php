@@ -19,7 +19,11 @@
     <main>
         
         <h1>Sign In</h1>
-        
+        <?php
+        if (isset($message)) {
+            echo $message;
+        }
+        ?>
         <form class="login-form">
             <label for="login_email">Email:</label> <br>
             <input type="email" name="email" id="login_email" autocomplete="email" required> <br>

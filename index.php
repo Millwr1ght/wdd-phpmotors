@@ -7,9 +7,12 @@
     
     //get the database connection
     require_once 'library/connections.php';
-    //get the model
+    //get the main model
     require_once 'model/main-model.php';
     
+
+
+
     /* variable creation */
     //get classifications
     $classifications = getClassifications();
@@ -24,9 +27,6 @@
         $nav_list .= "<a href='/phpmotors/index.php?action=".urlencode($classification['classificationName'])."' title='View our $classification[classificationName] product line'>$classification[classificationName]</a>";
     }
     $nav_list .= "</nav>";
-
-    //echo $navlist;
-    //exit;
 
     //decide which webpage to show
     $action = filter_input(INPUT_POST, 'action');

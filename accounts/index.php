@@ -1,5 +1,5 @@
 <?php
-    // welcome to the controller!
+    // welcome to the account controller!
     
     /* imports */
     //for debugging
@@ -7,9 +7,12 @@
     
     //get the database connection
     require_once '../library/connections.php';
-    //get the model
+    //get the main model
     require_once '../model/main-model.php';
-    
+    //get the accounts model
+    require_once '../model/accounts-model.php';
+
+
     /* variable creation */
     //get classifications
     $classifications = getClassifications();
@@ -25,7 +28,6 @@
     }
     $nav_list .= "</nav>";
 
-
     //decide which webpage to show
     $action = filter_input(INPUT_POST, 'action');
     if ($action == NULL){
@@ -33,9 +35,38 @@
     }
 
     switch ($action){
+        case 'registered':
+            //filter data, store data
+            $clientFirstname = filter_input(INPUT_POST, 'clientFirstname');
+            $clientLastname = filter_input(INPUT_POST, 'clientLastname');
+            $clientEmail = filter_input(INPUT_POST, 'clientEmail');
+            $clientPassword = filter_input(INPUT_POST, 'clientPassword');
+
+            //check if missing data
+            if(empty($clientFirstname) || empty($clientLastname) || empty($clientEmail) || empty($clientPassword)){
+                $message = '<p>Please provide information for all empty form fields. </p>';
+                include '../view/register.php';
+                exit;
+            }
+
+            //we have the data, send it
+            $regOutcome = regClient($clientFirstname, $clientLastname, $clientEmail, $clientPassword);
+            
+            if ($regOutcome === 1) {
+                $message = "<p>Thank you for registering $clientFirstname. Please use your email and password to login.</p>";
+                include '../view/login.php';
+                exit;
+            } else {
+                $message = "<p>Sorry $clientFirstname, but it looks like something went wrong</p>";
+                include '../view/register.php';
+            }
+
+            break;
+
         case 'register':
             include '../view/register.php';
             break;
+
         case'login':
         default:
             include '../view/login.php';
