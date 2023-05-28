@@ -35,6 +35,12 @@
     }
 
     switch ($action){
+
+        case '500':
+        case 'error':
+            include 'view/500.php';
+            break;
+
         case 'registered':
             //filter data, store data
             $clientFirstname = filter_input(INPUT_POST, 'clientFirstname');
