@@ -1,4 +1,4 @@
-<?php $title = 'Login'?>
+<?php $title = 'Add Classification'?>
 
 <!-- manage php session varables before this comment -->
 <!DOCTYPE html>
@@ -17,22 +17,26 @@
     <?php echo $nav_list; //require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; ?>
 
     <main>
-        
-        <h1>Sign In</h1>
+        <h1>Add a vehicle classification</h1>
+
         <?php
-        if (isset($message)) {
+        if (isset($message)){
             echo $message;
         }
         ?>
-        <form class="login-form">
-            <label for="login_email">Email:</label> <br>
-            <input type="email" name="email" id="login_email" autocomplete="email" required> <br>
-            <label for="login_password">Password:</label> <br>
-            <input type="password" name="password" id="login_password" required> <br>
-            <input type="submit" value="Sign In">
+
+        <form class="register-form" method="post" action="/phpmotors/vehicles/index.php">
+
+            <label for="classificationName">Classification Name:</label> <br>
+            <input type="text" name="classificationName" id="classificationName" autocomplete="none" required> <br>
+            
+            <input type="submit" id="register_submit" name="submit" value="Register">
+            <input type="reset"  id="register_reset" value="Reset">
+
+            <input type="hidden" name="action" value="class-added">
+        
         </form>
 
-        <a class="register-link" href="index.php?action=register">Not a member yet? <strong>Sign up here!</strong></a>
     </main>
 
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>

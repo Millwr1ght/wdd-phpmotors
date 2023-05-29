@@ -19,22 +19,30 @@
     <main>
         <h1>Create an Account</h1>
 
-        <form class="register-form">
+        <?php
+        if (isset($message)){
+            echo $message;
+        }
+        ?>
+
+        <form class="register-form" method="post" action="/phpmotors/accounts/index.php">
 
             <label for="register_first_name">First Name:</label> <br>
-            <input type="text" name="first_name" id="register_first_name" autocomplete="given-name" required> <br>
+            <input type="text" name="clientFirstname" id="register_first_name" autocomplete="given-name" required> <br>
             <label for="register_last_name">Last Name:</label> <br>
-            <input type="text" name="last_name" id="register_last_name" autocomplete="family-name" required> <br>
+            <input type="text" name="clientLastname" id="register_last_name" autocomplete="family-name" required> <br>
             
             <label for="register_email">Email:</label> <br>
-            <input type="email" name="email" id="register_email" autocomplete="email" required> <br>
+            <input type="email" name="clientEmail" id="register_email" autocomplete="email" required> <br>
             <label for="register_password">Password:</label> <br>
-            <input type="password" name="password" id="register_password" autocomplete="new-password" required> <br>
+            <input type="password" name="clientPassword" id="register_password" autocomplete="new-password" required> <br>
             <label for="password_confirm">Confirm Password:</label>  <br>
-            <input type="password" name="password_confirm" id="password_confirm" autocomplete="new-password" required> <br>
+            <input type="password" id="password_confirm" autocomplete="off" required> <br>
             
-            <input type="submit" value="Sign In">
-            <input type="reset" value="Reset">
+            <input type="submit" id="register_submit" name="submit" value="Register">
+            <input type="reset"  id="register_reset" value="Reset">
+
+            <input type="hidden" name="action" value="registered">
         
         </form>
 

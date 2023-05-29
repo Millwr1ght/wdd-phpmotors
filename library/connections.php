@@ -4,7 +4,7 @@
         $server = 'localhost';   //localhost
         $dbname = 'phpmotors';   //phpmotors
         $username = 'dbCrawler'; //dbCrawler
-        $password = 'piZbmu7QDeVar0wA';
+        $password = 'yVWN*6xxTuYOB8yA';
         $dsn = "mysql:host=$server;dbname=$dbname";
         $options = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
 

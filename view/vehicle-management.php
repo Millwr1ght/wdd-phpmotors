@@ -1,4 +1,4 @@
-<?php $title = 'Login'?>
+<?php $title = 'Vehicle Management'?>
 
 <!-- manage php session varables before this comment -->
 <!DOCTYPE html>
@@ -17,22 +17,11 @@
     <?php echo $nav_list; //require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; ?>
 
     <main>
+        <h1><?=$title?></h1>
         
-        <h1>Sign In</h1>
-        <?php
-        if (isset($message)) {
-            echo $message;
-        }
-        ?>
-        <form class="login-form">
-            <label for="login_email">Email:</label> <br>
-            <input type="email" name="email" id="login_email" autocomplete="email" required> <br>
-            <label for="login_password">Password:</label> <br>
-            <input type="password" name="password" id="login_password" required> <br>
-            <input type="submit" value="Sign In">
-        </form>
+        <a href="/phpmotors/vehicles/index.php?action=add-vehicle">Add Vehicle</a> <br> <br>
+        <a href="/phpmotors/vehicles/index.php?action=add-class">Add Classification</a>
 
-        <a class="register-link" href="index.php?action=register">Not a member yet? <strong>Sign up here!</strong></a>
     </main>
 
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>
