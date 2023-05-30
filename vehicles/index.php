@@ -53,15 +53,15 @@
         case 'vehicle-added':
 
             //filter data
-            $invMake = filter_input(INPUT_POST, 'invMake');
-            $invModel = filter_input(INPUT_POST, 'invModel'); 
-            $invDescription = filter_input(INPUT_POST, 'invDescription'); 
-            $invImage = filter_input(INPUT_POST, 'invImage'); 
-            $invThumbnail = filter_input(INPUT_POST, 'invThumbnail'); 
-            $invPrice = filter_input(INPUT_POST, 'invPrice'); 
-            $invStock = filter_input(INPUT_POST, 'invStock'); 
-            $invColor = filter_input(INPUT_POST, 'invColor'); 
-            $classificationId = filter_input(INPUT_POST, 'classificationId');
+            $invMake = trim(filter_input(INPUT_POST, 'invMake'));
+            $invModel = trim(filter_input(INPUT_POST, 'invModel')); 
+            $invDescription = trim(filter_input(INPUT_POST, 'invDescription')); 
+            $invImage = trim(filter_input(INPUT_POST, 'invImage')); 
+            $invThumbnail = trim(filter_input(INPUT_POST, 'invThumbnail')); 
+            $invPrice = trim(filter_input(INPUT_POST, 'invPrice')); 
+            $invStock = trim(filter_input(INPUT_POST, 'invStock')); 
+            $invColor = trim(filter_input(INPUT_POST, 'invColor')); 
+            $classificationId = trim(filter_input(INPUT_POST, 'classificationId'));
 
             //validata heh heh
             if (empty($invMake) || empty($invModel) || empty($invDescription) || empty($invImage) || empty($invThumbnail) || empty($invPrice) || empty($invStock) || empty($invColor) || empty($classificationId)) {
@@ -95,7 +95,7 @@
         case 'class-added':
 
             //filter data, store data
-            $classificationName = filter_input(INPUT_POST, 'classificationName');
+            $classificationName = trim(filter_input(INPUT_POST, 'classificationName'));
 
             //check if missing data
             if(empty($classificationName)){
