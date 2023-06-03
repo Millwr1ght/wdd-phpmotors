@@ -43,14 +43,22 @@
 
         case 'registered':
             //filter data, store data
-            $clientFirstname = filter_input(INPUT_POST, 'clientFirstname');
-            $clientLastname = filter_input(INPUT_POST, 'clientLastname');
-            $clientEmail = filter_input(INPUT_POST, 'clientEmail');
-            $clientPassword = filter_input(INPUT_POST, 'clientPassword');
+            $clientFirstname = trim(filter_input(INPUT_POST, 'clientFirstname', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+            $clientLastname = trim(filter_input(INPUT_POST, 'clientLastname', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+            $clientEmail = trim(filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL));
+            $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+            $confirmPassword = trim(filter_input(INPUT_POST, 'confirmPassword'));
 
             //check if missing data
             if(empty($clientFirstname) || empty($clientLastname) || empty($clientEmail) || empty($clientPassword)){
-                $message = '<p>Please provide information for all empty form fields. </p>';
+                $message = '<p>Please provide information for all empty form fields.</p>';
+                include '../view/register.php';
+                exit;
+            }
+
+            //confirm password
+            if($clientPassword !== $confirmPassword) {
+                $message = '<p>Passwords should match.</p>';
                 include '../view/register.php';
                 exit;
             }
