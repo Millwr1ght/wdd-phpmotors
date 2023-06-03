@@ -29,7 +29,7 @@
             <input type="email" name="email" id="login_email" autocomplete="email" required> <br>
             
             <label for="login_password">Password:</label> <br>
-            <input type="password" name="password" id="login_password" pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required> <br>
+            <input type="password" name="password" id="login_password" pattern="/(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/" required> <br>
             
             <input type="submit" value="Sign In">
         </form>
