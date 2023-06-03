@@ -4,7 +4,7 @@
     /* imports */
     //functions
     require_once '../library/console_log.php';
-    re
+    require_once '../library/functions.php';
     //get the database connection
     require_once '../library/connections.php';
     //get the main model
@@ -47,7 +47,7 @@
             $clientLastname = trim(filter_input(INPUT_POST, 'clientLastname', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
             $clientEmail = trim(filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL));
             $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-            //$confirmPassword = trim(filter_input(INPUT_POST, 'confirmPassword'));
+            //$confirmPassword = trim(filter_input(INPUT_POST, 'confirmPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 
             $checkPassword = checkPassword($clientPassword);
 

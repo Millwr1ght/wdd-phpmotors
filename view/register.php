@@ -28,15 +28,16 @@
         <form class="register-form" method="post" action="/phpmotors/accounts/index.php">
 
             <label for="register_first_name">First Name:</label> <br>
-            <input type="text" name="clientFirstname" id="register_first_name" autocomplete="given-name" required> <br>
+            <input type="text" name="clientFirstname" id="register_first_name" <?=(isset($clientFirstname) ? "value='$clientFirstname'":'')?> autocomplete="given-name" required> <br>
             
             <label for="register_last_name">Last Name:</label> <br>
-            <input type="text" name="clientLastname" id="register_last_name" autocomplete="family-name" required> <br>
+            <input type="text" name="clientLastname" id="register_last_name" <?=(isset($clientLastname) ? "value='$clientLastname'":'')?>  autocomplete="family-name" required> <br>
             
             <label for="register_email">Email:</label> <br>
-            <input type="email" name="clientEmail" id="register_email" autocomplete="email" required> <br>
+            <input type="email" name="clientEmail" id="register_email" autocomplete="email" <?=(isset($clientEmail) ? "value='$clientEmail'":'')?> required> <br>
             
             <label for="register_password">Password:</label> <br>
+            <span>Passwords must have 8+ characters, and at least 1 number, 1 Capital Letter and 1 special character.</span> <br>
             <input type="password" name="clientPassword" id="register_password" pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" autocomplete="new-password" required> <br>
 
             <!-- <label for="confirm_password">Confirm Password:</label>  <br>
