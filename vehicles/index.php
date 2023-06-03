@@ -2,9 +2,9 @@
     // welcome to the vehicle controller!
     
     /* imports */
-    //for debugging
+    //functions
     require_once '../library/console_log.php';
-    
+    require_once '../library/functions.php';
     //get 
     //database connection
     require_once '../library/connections.php';
@@ -19,19 +19,8 @@
     //get classifications
     $classifications = getClassifications();
 
-    //var_dump($classifications);
-    //exit;
-
     //(re)build the nav
-    $nav_list = "<nav class='nav-top' id='page-nav'>"; 
-    $nav_list .= "<a href='/phpmotors/index.php' title='View the PHP Motors home page'>Home</a>";
-    foreach ($classifications as $classification) {
-        $nav_list .= "<a href='/phpmotors/index.php?action=".urlencode($classification['classificationName'])."' title='View our $classification[classificationName] product line'>$classification[classificationName]</a>";
-    }
-    $nav_list .= "</nav>";
-
-
-
+    $nav_list = buildNav($classifications);
 
     //decide which webpage to show
     $action = filter_input(INPUT_POST, 'action');
@@ -53,15 +42,15 @@
         case 'vehicle-added':
 
             //filter data
-            $invMake = trim(filter_input(INPUT_POST, 'invMake'));
-            $invModel = trim(filter_input(INPUT_POST, 'invModel')); 
-            $invDescription = trim(filter_input(INPUT_POST, 'invDescription')); 
-            $invImage = trim(filter_input(INPUT_POST, 'invImage')); 
-            $invThumbnail = trim(filter_input(INPUT_POST, 'invThumbnail')); 
-            $invPrice = trim(filter_input(INPUT_POST, 'invPrice')); 
-            $invStock = trim(filter_input(INPUT_POST, 'invStock')); 
-            $invColor = trim(filter_input(INPUT_POST, 'invColor')); 
-            $classificationId = trim(filter_input(INPUT_POST, 'classificationId'));
+            $invMake = trim(filter_input(INPUT_POST, 'invMake', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+            $invModel = trim(filter_input(INPUT_POST, 'invModel', FILTER_SANITIZE_FULL_SPECIAL_CHARS)); 
+            $invDescription = trim(filter_input(INPUT_POST, 'invDescription', FILTER_SANITIZE_FULL_SPECIAL_CHARS)); 
+            $invImage = trim(filter_input(INPUT_POST, 'invImage', FILTER_SANITIZE_FULL_SPECIAL_CHARS)); 
+            $invThumbnail = trim(filter_input(INPUT_POST, 'invThumbnail', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+            $invPrice = trim(filter_input(INPUT_POST, 'invPrice', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+            $invStock = trim(filter_input(INPUT_POST, 'invStock', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+            $invColor = trim(filter_input(INPUT_POST, 'invColor', FILTER_SANITIZE_FULL_SPECIAL_CHARS)); 
+            $classificationId = trim(filter_input(INPUT_POST, 'classificationId', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 
             //validata heh heh
             if (empty($invMake) || empty($invModel) || empty($invDescription) || empty($invImage) || empty($invThumbnail) || empty($invPrice) || empty($invStock) || empty($invColor) || empty($classificationId)) {

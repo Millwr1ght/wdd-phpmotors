@@ -2,31 +2,21 @@
     // welcome to the base controller!
     
     /* imports */
-    //for debugging
+    //utilities
     require_once 'library/console_log.php';
-    
+    require_once 'library/functions.php';
     //get the database connection
     require_once 'library/connections.php';
     //get the main model
     require_once 'model/main-model.php';
     
 
-
-
     /* variable creation */
     //get classifications
     $classifications = getClassifications();
 
-    //var_dump($classifications);
-    //exit;
-
     //(re)build the nav
-    $nav_list = "<nav class='nav-top' id='page-nav'>"; 
-    $nav_list .= "<a href='/phpmotors/index.php' title='View the PHP Motors home page'>Home</a>";
-    foreach ($classifications as $classification) {
-        $nav_list .= "<a href='/phpmotors/index.php?action=".urlencode($classification['classificationName'])."' title='View our $classification[classificationName] product line'>$classification[classificationName]</a>";
-    }
-    $nav_list .= "</nav>";
+    $nav_list = buildNav($classifications);
 
     //decide which webpage to show
     $action = filter_input(INPUT_POST, 'action');
@@ -46,5 +36,6 @@
             
         default:
             include 'view/home.php';
+            break;
     }
 ?>

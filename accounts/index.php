@@ -21,12 +21,7 @@
     //exit;
 
     //(re)build the nav
-    $nav_list = "<nav class='nav-top' id='page-nav'>"; 
-    $nav_list .= "<a href='/phpmotors/index.php' title='View the PHP Motors home page'>Home</a>";
-    foreach ($classifications as $classification) {
-        $nav_list .= "<a href='/phpmotors/index.php?action=".urlencode($classification['classificationName'])."' title='View our $classification[classificationName] product line'>$classification[classificationName]</a>";
-    }
-    $nav_list .= "</nav>";
+    $nav_list = buildNav($classifications);
 
     //decide which webpage to show
     $action = filter_input(INPUT_POST, 'action');
