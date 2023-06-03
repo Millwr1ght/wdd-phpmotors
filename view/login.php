@@ -24,7 +24,8 @@
             echo $message;
         }
         ?>
-        <form class="login-form">
+        <form class="login-form"  method="post" action="/phpmotors/accounts/index.php">
+
             <label for="login_email">Email:</label> <br>
             <input type="email" name="email" id="login_email" <?=(isset($clientEmail) ? "value='$clientEmail'":'')?> autocomplete="email" required> <br>
             
@@ -33,6 +34,9 @@
             <input type="password" name="password" id="login_password" pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required> <br>
             
             <input type="submit" value="Sign In">
+            <input type="reset" value="Reset">
+
+            <input type="hidden" name="action" value="logged-in">
         </form>
 
         <a class="register-link" href="index.php?action=register">Not a member yet? <strong>Sign up here!</strong></a>

@@ -34,6 +34,9 @@
         $action = filter_input(INPUT_GET, 'action');
     }
 
+    // reset messages
+    $message = '';
+
     switch ($action){
 
         case '500':
@@ -49,10 +52,11 @@
             $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
             //$confirmPassword = trim(filter_input(INPUT_POST, 'confirmPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 
+            $clientEmail = checkEmail($clientEmail);
             $checkPassword = checkPassword($clientPassword);
 
             //check if missing data
-            if(empty($clientFirstname) || empty($clientLastname) || empty($clientEmail) || empty($clientPassword)){
+            if(empty($clientFirstname) || empty($clientLastname) || empty($clientEmail) || empty($checkPassword)){
                 $message = '<p>Please provide information for all empty form fields.</p>';
                 include '../view/register.php';
                 exit;
@@ -65,8 +69,11 @@
             //     exit;
             // }
 
+            // make hash browns
+            $hashedPassword = password_hash($clientPassword, PASSWORD_DEFAULT);
+            
             //we have the data, send it
-            $regOutcome = regClient($clientFirstname, $clientLastname, $clientEmail, $clientPassword);
+            $regOutcome = regClient($clientFirstname, $clientLastname, $clientEmail, $hashedPassword);
             
             if ($regOutcome === 1) {
                 $message = "<p>Thank you for registering $clientFirstname. Please use your email and password to login.</p>";
@@ -82,6 +89,28 @@
         case 'register':
             include '../view/register.php';
             break;
+
+        case 'logged-in':
+            //filter data, store data
+            $clientEmail = trim(filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL));
+            $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+            
+            //vaildate
+            $clientEmail = checkEmail($clientEmail);
+            $checkPassword = checkPassword($clientPassword);
+            
+            //check if missing data
+            if(empty($clientEmail) || empty($checkPassword)){
+                $message = '<p>Please provide information for all empty form fields.</p>';
+                include '../view/login.php';
+                exit;
+            } else {
+                unset($message);
+            }
+
+            //$message = (empty($clientEmail) || empty($checkPassword)) ? '<p>Please provide information for all empty form fields.</p>' : '<p>Messages work?</p>' ;
+
+            // whether checks pass, we're going to default either way
 
         case'login':
         default:
