@@ -7,7 +7,7 @@ function regClient($clientFirstname, $clientLastname, $clientEmail, $clientPassw
     $db = phpmotorsConnect();
 
     //prepare squirrels
-    $sql = 'INSERT INTO clients (cliestFirstname, clientLastname, clientEmail, clientPassword) VALUES (:clientFirstname,:clientLastname,:clientEmail,:clientPassword);';
+    $sql = 'INSERT INTO clients (clientFirstname, clientLastname, clientEmail, clientPassword) VALUES (:clientFirstname,:clientLastname,:clientEmail,:clientPassword);';
 
     //combine statement with connection
     $stmt = $db->prepare($sql);
