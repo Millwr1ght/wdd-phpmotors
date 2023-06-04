@@ -17,10 +17,10 @@
 
     /* variable creation */
     //get classifications
-    $classifications = getClassifications();
+    $carclassifications = getClassifications();
 
     //(re)build the nav
-    $nav_list = buildNav($classifications);
+    $nav_list = buildNav($carclassifications);
 
     //decide which webpage to show
     $action = filter_input(INPUT_POST, 'action');
@@ -47,10 +47,13 @@
             $invDescription = trim(filter_input(INPUT_POST, 'invDescription', FILTER_SANITIZE_FULL_SPECIAL_CHARS)); 
             $invImage = trim(filter_input(INPUT_POST, 'invImage', FILTER_SANITIZE_FULL_SPECIAL_CHARS)); 
             $invThumbnail = trim(filter_input(INPUT_POST, 'invThumbnail', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-            $invPrice = trim(filter_input(INPUT_POST, 'invPrice', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-            $invStock = trim(filter_input(INPUT_POST, 'invStock', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+            $invPrice = trim(filter_input(INPUT_POST, 'invPrice', FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_FRACTION, FILTER_FLAG_ALLOW_THOUSAND));
+            $invStock = trim(filter_input(INPUT_POST, 'invStock', FILTER_SANITIZE_FULL_SPECIAL_CHARS, FILTER_VALIDATE_INT));
             $invColor = trim(filter_input(INPUT_POST, 'invColor', FILTER_SANITIZE_FULL_SPECIAL_CHARS)); 
             $classificationId = trim(filter_input(INPUT_POST, 'classificationId', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+
+            
+            
 
             //validata heh heh
             if (empty($invMake) || empty($invModel) || empty($invDescription) || empty($invImage) || empty($invThumbnail) || empty($invPrice) || empty($invStock) || empty($invColor) || empty($classificationId)) {
@@ -84,7 +87,7 @@
         case 'class-added':
 
             //filter data, store data
-            $classificationName = trim(filter_input(INPUT_POST, 'classificationName'));
+            $classificationName = trim(filter_input(INPUT_POST, 'classificationName', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 
             //check if missing data
             if(empty($classificationName)){

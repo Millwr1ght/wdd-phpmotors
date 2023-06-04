@@ -29,35 +29,37 @@
 
 
             <label for="invMake">Make:</label> <br>
-            <input type="text" name="invMake" id="invMake" autocomplete="none" placeholder="Boeing" required> <br>
+            <input type="text" name="invMake" id="invMake" <?=(isset($invMake) ? "value='$invMake'" : '') ?> maxlength="30" autocomplete="none" placeholder="Boeing" required> <br>
 
             <label for="invModel">Model:</label> <br>
-            <input type="text" name="invModel" id="invModel" autocomplete="none" placeholder="747" required> <br>
+            <input type="text" name="invModel" id="invModel" <?=(isset($invModel) ? "value='$invModel'" : '') ?> maxlength="30" autocomplete="none" placeholder="747" required> <br>
             
             <label for="invColor">Color:</label> <br>
-            <input type="text" name="invColor" id="invColor" autocomplete="none" placeholder="Black" required> <br>
+            <input type="text" name="invColor" id="invColor" <?=(isset($invColor) ? "value='$invColor'" : '') ?> maxlength="20" autocomplete="none" placeholder="Black" required> <br>
         
             <label for="classificationId">Vehicle Classification:</label> <br>
             <select name="classificationId" id="classificationId">
 
-                <?php foreach ($classifications as $classification): ?>
-                <option value="<?=$classification['classificationId']?>"><?=$classification['classificationName']?></option>
+                <?php foreach ($carclassifications as $classification): ?>
+                <option value="<?=$classification['classificationId']?>" <?=( isset($classificationId) && $classificationId == $classification['classificationId'] ? 'selected' : '') ?> ><?=$classification['classificationName']?></option>
                 <?php endforeach; //did you know that you could do this like this with php? wild. ?>
 
             </select> <br> <br>
         
             <label for="invDescription">Description:</label> <br>
-            <textarea name="invDescription" id="invDescription" cols="30" rows="10"></textarea> <br> <br>
-
-            <input type="hidden" name="invImage" value="/images/no-image.png">
+            <textarea name="invDescription" id="invDescription" cols="30" rows="6"><?= (isset($invDescription) ? $invDescription : '') ?></textarea> <br> <br>
             
-            <input type="hidden" name="invThumbnail" value="/images/no-image.png">
+            <label for="invPrice">Image file path:</label> <br>
+            <input type="text" name="invImage" id="invImage" <?=(isset($invImage) ? "value='$invImage'" :'value="/images/no-image.png"')?> maxlength="50" required> <br>
+            
+            <label for="invThumbnail">Thumbnail file path:</label> <br>
+            <input type="text" name="invThumbnail" id="invThumbnail" <?=(isset($invThumbnail) ? "value='$invThumbnail'" :'value="/images/no-image.png"')?> maxlength="50" required> <br>
 
             <label for="invPrice">Price:</label> <br>
-            <input type="text" name="invPrice" id="invPrice" autocomplete="none" placeholder="23456.78" required> <br>
+            <input type="text" name="invPrice" id="invPrice" <?=(isset($invPrice) ? "value='$invPrice'" : '') ?> autocomplete="none" placeholder="23456.78" maxlength="10" required> <br>
             
             <label for="invStock">Stock:</label> <br>
-            <input type="text" name="invStock" id="invStock" autocomplete="none" placeholder="230"required> <br> <br>
+            <input type="text" name="invStock" id="invStock" <?=(isset($invStock) ? "value='$invStock'" : '') ?> autocomplete="none" placeholder="230" maxlength="6" required> <br> <br>
 
             
             <input type="submit" id="register_submit" name="submit" value="Register">
