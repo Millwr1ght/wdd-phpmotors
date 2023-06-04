@@ -101,11 +101,10 @@
                 exit;
             } else {
                 unset($message);
+                header('Location: /phpmotors/index.php');
+                exit;
             }
-
-            //$message = (empty($clientEmail) || empty($checkPassword)) ? '<p>Please provide information for all empty form fields.</p>' : '<p>Messages work?</p>' ;
-
-            // whether checks pass, we're going to default either way
+            break;
 
         case'login':
         default:

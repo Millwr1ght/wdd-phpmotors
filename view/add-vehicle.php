@@ -29,13 +29,13 @@
 
 
             <label for="invMake">Make:</label> <br>
-            <input type="text" name="invMake" id="invMake" <?=(isset($invMake) ? "value='$invMake'" : '') ?> maxlength="30" autocomplete="none" placeholder="Boeing" required> <br>
+            <input type="text" name="invMake" id="invMake" <?=(isset($invMake) ? "value='$invMake'" : '') ?> maxlength="30" autocomplete="none" required> <br>
 
             <label for="invModel">Model:</label> <br>
-            <input type="text" name="invModel" id="invModel" <?=(isset($invModel) ? "value='$invModel'" : '') ?> maxlength="30" autocomplete="none" placeholder="747" required> <br>
+            <input type="text" name="invModel" id="invModel" <?=(isset($invModel) ? "value='$invModel'" : '') ?> maxlength="30" autocomplete="none" required> <br>
             
             <label for="invColor">Color:</label> <br>
-            <input type="text" name="invColor" id="invColor" <?=(isset($invColor) ? "value='$invColor'" : '') ?> maxlength="20" autocomplete="none" placeholder="Black" required> <br>
+            <input type="text" name="invColor" id="invColor" <?=(isset($invColor) ? "value='$invColor'" : '') ?> maxlength="20" autocomplete="none" required> <br>
         
             <label for="classificationId">Vehicle Classification:</label> <br>
             <select name="classificationId" id="classificationId">
@@ -49,17 +49,17 @@
             <label for="invDescription">Description:</label> <br>
             <textarea name="invDescription" id="invDescription" cols="30" rows="6"><?= (isset($invDescription) ? $invDescription : '') ?></textarea> <br> <br>
             
-            <label for="invPrice">Image file path:</label> <br>
+            <label for="invImage">Image file path:</label> <br>
             <input type="text" name="invImage" id="invImage" <?=(isset($invImage) ? "value='$invImage'" :'value="/images/no-image.png"')?> maxlength="50" required> <br>
             
             <label for="invThumbnail">Thumbnail file path:</label> <br>
             <input type="text" name="invThumbnail" id="invThumbnail" <?=(isset($invThumbnail) ? "value='$invThumbnail'" :'value="/images/no-image.png"')?> maxlength="50" required> <br>
 
             <label for="invPrice">Price:</label> <br>
-            <input type="text" name="invPrice" id="invPrice" <?=(isset($invPrice) ? "value='$invPrice'" : '') ?> autocomplete="none" placeholder="23456.78" maxlength="10" required> <br>
+            <input type="text" name="invPrice" id="invPrice" <?=(isset($invPrice) ? "value='$invPrice'" : '') ?> autocomplete="none" maxlength="10" required> <br>
             
             <label for="invStock">Stock:</label> <br>
-            <input type="text" name="invStock" id="invStock" <?=(isset($invStock) ? "value='$invStock'" : '') ?> autocomplete="none" placeholder="230" maxlength="6" required> <br> <br>
+            <input type="text" name="invStock" id="invStock" <?=(isset($invStock) ? "value='$invStock'" : '') ?> autocomplete="none" maxlength="6" required> <br> <br>
 
             
             <input type="submit" id="register_submit" name="submit" value="Register">
