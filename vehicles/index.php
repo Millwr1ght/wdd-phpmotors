@@ -88,7 +88,6 @@
 
             //filter data, store data
             $classificationName = trim(filter_input(INPUT_POST, 'classificationName', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-
             //check length
             if (checkLen($classificationName, 30)) {
                 unset($classificationName);

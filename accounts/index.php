@@ -47,6 +47,7 @@
             $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
             //$confirmPassword = trim(filter_input(INPUT_POST, 'confirmPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 
+
             $clientEmail = checkEmail($clientEmail);
             $checkPassword = checkPassword($clientPassword);
 
@@ -66,7 +67,7 @@
 
             // make hash browns
             $hashedPassword = password_hash($clientPassword, PASSWORD_DEFAULT);
-            
+
             //we have the data, send it
             $regOutcome = regClient($clientFirstname, $clientLastname, $clientEmail, $hashedPassword);
             

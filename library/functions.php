@@ -9,8 +9,8 @@ function checkPassword($clientPassword) {
     return preg_match($pattern, $clientPassword);
 };
 
-function checkEmail($clientEmail) {
-    // validate the email address
+function checkEmail($clientEmail){
+    // validate their email
     $checkEmail = filter_var($clientEmail, FILTER_VALIDATE_EMAIL);
     return $checkEmail;
 }
@@ -28,5 +28,4 @@ function buildNav($classifications){
     $nav_list .= "</nav>";
     return $nav_list;
 }
-
 ?>

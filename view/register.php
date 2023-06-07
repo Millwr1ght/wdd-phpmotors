@@ -40,9 +40,11 @@
             <span>Passwords must have 8+ characters, and at least 1 number, 1 Capital Letter and 1 special character.</span> <br>
             <input type="password" name="clientPassword" id="register_password" pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" autocomplete="new-password" required> <br>
 
-            <!-- <label for="confirm_password">Confirm Password:</label>  <br>
-            <input type="password" name="confirmPassword" id="confirm_password" pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" autocomplete="off" required> <br> -->
-            
+            <!--
+            <label for="confirm_password">Confirm Password:</label>  <br>
+            <input type="password" name="confirmPassword" id="confirm_password" pattern="/(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/" autocomplete="off" required> <br>
+            -->
+          
             <input type="submit" id="register_submit" name="submit" value="Register">
             <input type="reset"  id="register_reset" value="Reset">
 
