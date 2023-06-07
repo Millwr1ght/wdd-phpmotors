@@ -158,6 +158,10 @@ form input {
     margin-bottom: 0.5em;
 }
 
+form span {
+    font-size: var(--font-small);
+}
+
 .register-link {
     margin-bottom: 2em;
 }

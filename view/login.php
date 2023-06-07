@@ -17,21 +17,27 @@
     <?php echo $nav_list; //require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; ?>
 
     <main>
-        
         <h1>Sign In</h1>
+
         <?php
-        if (isset($message)) {
+        if (isset($message)){
             echo $message;
         }
         ?>
-        <form class="login-form">
-            <label for="login_email">Email:</label> <br>
-            <input type="email" name="email" id="login_email" autocomplete="email" required> <br>
+
+        <form class="login-form"  method="post" action="/phpmotors/accounts/index.php">
+
+            <label for="clientEmail">Email:</label> <br>
+            <input type="email" name="clientEmail" id="clientEmail" <?=(isset($clientEmail) ? "value='$clientEmail'":'')?> autocomplete="email" required> <br>
             
-            <label for="login_password">Password:</label> <br>
-            <input type="password" name="password" id="login_password" pattern="/(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/" required> <br>
+            <label for="clientPassword">Password:</label> <br>
+            <span>Passwords must have 8+ characters, and at least 1 number, 1 Capital Letter and 1 special character.</span> <br>
+            <input type="password" name="clientPassword" id="clientPassword" pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" autocomplete="none" required> <br>
             
             <input type="submit" value="Sign In">
+            <input type="reset" value="Reset">
+
+            <input type="hidden" name="action" value="logged-in">
         </form>
 
         <a class="register-link" href="index.php?action=register">Not a member yet? <strong>Sign up here!</strong></a>
