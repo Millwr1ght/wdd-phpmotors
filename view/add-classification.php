@@ -29,7 +29,7 @@
         <form class="register-form" method="post" action="/phpmotors/vehicles/index.php">
 
             <label for="classificationName">Classification Name:</label> <br>
-            <span>Character limit 30</span> <br>
+            <span class="hint">Character limit 30</span> <br>
             <input type="text" name="classificationName" id="classificationName" <?= (isset($classificatioName) ? "value='$classificationName'" : '') ?> maxlength="30" autocomplete="none" required> <br>
 
             <input type="submit" id="register_submit" name="submit" value="Register">

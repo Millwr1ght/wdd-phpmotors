@@ -31,7 +31,7 @@
             <input type="email" name="clientEmail" id="clientEmail" <?=(isset($clientEmail) ? "value='$clientEmail'":'')?> autocomplete="email" required> <br>
             
             <label for="clientPassword">Password:</label> <br>
-            <span>Passwords must have 8+ characters, and at least 1 number, 1 Capital Letter and 1 special character.</span> <br>
+            <span class="hint">Passwords must have 8+ characters, and at least 1 number, 1 Capital Letter and 1 special character.</span> <br>
             <input type="password" name="clientPassword" id="clientPassword" pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" autocomplete="none" required> <br>
             
             <input type="submit" value="Sign In">
