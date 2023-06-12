@@ -6,7 +6,7 @@
         <p>All images used are believed to be in "Fair Use". Please notify the author if any are not and they will be
             removed.</p>
         <p id="last-updated">Last updated: <?=$pageLastUpdated?></p>
-        <a href="/phpmotors/index.php?action=template">site template</a>
+        <a href="/phpmotors/?action=template">site template</a>
     </div>
     
     <div class="banner-container divider-top">

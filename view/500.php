@@ -1,9 +1,7 @@
-<!-- enhancement deux: electric boogaloo -->
-<!-- server error, could not be reached -->
-
 <!DOCTYPE html>
 <html lang="en">
-
+<!-- enhancement deux: electric boogaloo -->
+<!-- server error, could not be reached -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">

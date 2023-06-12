@@ -14,13 +14,13 @@
 
 
     /* variable creation */
+    //get session
+    session_start();    
+
     //get classifications
     $classifications = getClassifications();
 
-    //var_dump($classifications);
-    //exit;
-
-    //(re)build the nav
+    //get nav
     $nav_list = buildNav($classifications);
 
     //decide which webpage to show
@@ -37,6 +37,18 @@
         case '500':
         case 'error':
             include 'view/500.php';
+            break;
+
+        case 'logout':
+            // unset $_SESSION data, not $_SESSION itself
+            $_SESSION = array();
+            session_unset();
+
+            // end/pause session
+            session_destroy();
+
+            header('Location: /phpmotors/');
+            exit;
             break;
 
         case 'registered':
@@ -65,6 +77,15 @@
             //     exit;
             // }
 
+            //check for duplicate records. if duplicate, go to start
+            $existingEmail = checkExistingEmail($clientEmail);
+
+            if ($existingEmail) {
+               $message = '<p>This email address is used by another user. Try again.</p>';
+               include '../view/login.php';
+               exit;
+            }
+
             // make hash browns
             $hashedPassword = password_hash($clientPassword, PASSWORD_DEFAULT);
 
@@ -72,8 +93,11 @@
             $regOutcome = regClient($clientFirstname, $clientLastname, $clientEmail, $hashedPassword);
             
             if ($regOutcome === 1) {
-                $message = "<p>Thank you for registering $clientFirstname. Please use your email and password to login.</p>";
-                include '../view/login.php';
+                // bake a cookie
+                //setcookie('firstname', $clientFirstname, strtotime('+1 year'), '/');
+                
+                $_SESSION['message'] = "Thanks for registering $clientFirstname. Please use your email and password to login.";
+                header('Location: /phpmotors/accounts/?action=login');
                 exit;
             } else {
                 $message = "<p>Sorry $clientFirstname, but it looks like something went wrong</p>";
@@ -100,16 +124,43 @@
                 $message = '<p>Please provide information for all empty form fields.</p>';
                 include '../view/login.php';
                 exit;
-            } else {
-                unset($message);
-                header('Location: /phpmotors/index.php');
-                exit;
             }
+
+            //data exists, get data
+            $clientData = getClient($clientEmail);
+
+            //validate data again
+            $hash_check = password_verify($clientPassword, $clientData['clientPassword']);
+
+            if (!$hash_check) {
+                $message = '<p>Password incorrect. Try again.</p>';
+                include '../view/login.php';
+                exit;                
+            }
+
+
+            //success        
+            unset($message);
+
+            $_SESSION['loggedin'] = TRUE;
+
+            // remove client password. hopefully, it was last
+            array_pop($clientData);
+            // store the rest
+            $_SESSION['clientData'] = $clientData;
+
+            //header('Location: /phpmotors/index.php');
+            include '../view/admin.php';
+            exit;
+            
             break;
 
         case'login':
-        default:
             include '../view/login.php';
+            break;
+
+        default:
+            include '../view/admin.php';
             break;
     }
 ?>

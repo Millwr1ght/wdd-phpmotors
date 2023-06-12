@@ -1,7 +1,12 @@
-<?php $title = 'Add Classification' ?>
+<?php $title = 'Add Classification';
+if (!$_SESSION['loggedin']
+|| ($_SESSION['loggedin'] && $_SESSION['clientData']['clientLevel'] <= 1)) {
+    # if not logged in, or if logged in but not an admin, redirect to home
+    header('Location: /phpmotors/?action=log_in_first');
+    exit;
+}
 
-<!-- manage php session varables before this comment -->
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>

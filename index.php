@@ -12,6 +12,9 @@
     
 
     /* variable creation */
+    // Create or unpause session
+    session_start();
+
     //get classifications
     $classifications = getClassifications();
 

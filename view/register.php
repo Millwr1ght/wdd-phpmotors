@@ -1,7 +1,4 @@
-<?php $title = 'Register'?>
-
-<!-- manage php session varables before this comment -->
-<!DOCTYPE html>
+<?php $title = 'Register'?><!DOCTYPE html>
 <html lang="en">
 
 <head>

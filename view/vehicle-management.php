@@ -1,7 +1,11 @@
-<?php $title = 'Vehicle Management'?>
-
-<!-- manage php session varables before this comment -->
-<!DOCTYPE html>
+<?php $title = 'Vehicle Management';
+if (!$_SESSION['loggedin']
+|| ($_SESSION['loggedin'] && $_SESSION['clientData']['clientLevel'] <= 1)) {
+    # if not logged in, or if logged in but not an admin, redirect to home
+    header('Location: /phpmotors/?action=log_in_first');
+    exit;
+}
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>

@@ -1,7 +1,4 @@
-<?php $title = 'Login'?>
-
-<!-- manage php session varables before this comment -->
-<!DOCTYPE html>
+<?php $title = 'Login'?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -20,12 +17,15 @@
         <h1>Sign In</h1>
 
         <?php
-        if (isset($message)){
+        if (isset($_SESSION['message'])) {
+            echo $_SESSION['message'];
+        } else if (isset($message)){
             echo $message;
         }
+        
         ?>
 
-        <form class="login-form"  method="post" action="/phpmotors/accounts/index.php">
+        <form class="login-form"  method="post" action="/phpmotors/accounts/">
 
             <label for="clientEmail">Email:</label> <br>
             <input type="email" name="clientEmail" id="clientEmail" <?=(isset($clientEmail) ? "value='$clientEmail'":'')?> autocomplete="email" required> <br>
