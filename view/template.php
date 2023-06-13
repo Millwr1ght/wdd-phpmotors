@@ -1,7 +1,4 @@
-<?php $title = 'Template'?>
-
-<!-- manage php session varables before this comment -->
-<!DOCTYPE html>
+<?php $title = 'Template'?><!DOCTYPE html>
 <html lang="en">
 
 <head>

@@ -16,6 +16,9 @@
 
 
     /* variable creation */
+    //get session
+    session_start();
+    
     //get classifications
     $carclassifications = getClassifications();
 

@@ -1,7 +1,12 @@
-<?php $title = 'Add Classification' ?>
+<?php $title = 'Add Classification';
+if (!$_SESSION['loggedin']
+|| ($_SESSION['loggedin'] && $_SESSION['clientData']['clientLevel'] <= 1)) {
+    # if not logged in, or if logged in but not an admin, redirect to home
+    header('Location: /phpmotors/?action=log_in_first');
+    exit;
+}
 
-<!-- manage php session varables before this comment -->
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -29,7 +34,7 @@
         <form class="register-form" method="post" action="/phpmotors/vehicles/index.php">
 
             <label for="classificationName">Classification Name:</label> <br>
-            <span>Character limit 30</span> <br>
+            <span class="hint">Character limit 30</span> <br>
             <input type="text" name="classificationName" id="classificationName" <?= (isset($classificatioName) ? "value='$classificationName'" : '') ?> maxlength="30" autocomplete="none" required> <br>
 
             <input type="submit" id="register_submit" name="submit" value="Register">

@@ -1,7 +1,12 @@
-<?php $title = 'Add Vehicle'?>
+<?php $title = 'Add Vehicle';
+if (!$_SESSION['loggedin']
+|| ($_SESSION['loggedin'] && $_SESSION['clientData']['clientLevel'] <= 1)) {
+    # if not logged in, or if logged in but not an admin, redirect to home
+    header('Location: /phpmotors/?action=log_in_first');
+    exit;
+}
 
-<!-- manage php session varables before this comment -->
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -29,13 +34,13 @@
 
 
             <label for="invMake">Make:</label> <br>
-            <input type="text" name="invMake" id="invMake" <?=(isset($invMake) ? "value='$invMake'" : '') ?> maxlength="30" autocomplete="none" required> <br>
+            <input type="text" name="invMake" id="invMake" <?=(isset($invMake) ? "value='$invMake'" : '') ?> maxlength="30" title="Character limit 30" autocomplete="none" required> <br>
 
             <label for="invModel">Model:</label> <br>
-            <input type="text" name="invModel" id="invModel" <?=(isset($invModel) ? "value='$invModel'" : '') ?> maxlength="30" autocomplete="none" required> <br>
+            <input type="text" name="invModel" id="invModel" <?=(isset($invModel) ? "value='$invModel'" : '') ?> maxlength="30" title="Character limit 30" autocomplete="none" required> <br>
             
             <label for="invColor">Color:</label> <br>
-            <input type="text" name="invColor" id="invColor" <?=(isset($invColor) ? "value='$invColor'" : '') ?> maxlength="20" autocomplete="none" required> <br>
+            <input type="text" name="invColor" id="invColor" <?=(isset($invColor) ? "value='$invColor'" : '') ?> maxlength="20" title="Character limit 20" autocomplete="none" required> <br>
         
             <label for="classificationId">Vehicle Classification:</label> <br>
             <select name="classificationId" id="classificationId">
@@ -47,19 +52,19 @@
             </select> <br> <br>
         
             <label for="invDescription">Description:</label> <br>
-            <textarea name="invDescription" id="invDescription" cols="30" rows="6"><?= (isset($invDescription) ? $invDescription : '') ?></textarea> <br> <br>
+            <textarea name="invDescription" id="invDescription" cols="40" rows="6"><?= (isset($invDescription) ? $invDescription : '') ?></textarea> <br> <br>
             
             <label for="invImage">Image file path:</label> <br>
-            <input type="text" name="invImage" id="invImage" <?=(isset($invImage) ? "value='$invImage'" :'value="/images/no-image.png"')?> maxlength="50" required> <br>
+            <input type="text" name="invImage" id="invImage" <?=(isset($invImage) ? "value='$invImage'" :'value="/images/no-image.png"')?> maxlength="50" title="Character limit 50" required> <br>
             
             <label for="invThumbnail">Thumbnail file path:</label> <br>
-            <input type="text" name="invThumbnail" id="invThumbnail" <?=(isset($invThumbnail) ? "value='$invThumbnail'" :'value="/images/no-image.png"')?> maxlength="50" required> <br>
+            <input type="text" name="invThumbnail" id="invThumbnail" <?=(isset($invThumbnail) ? "value='$invThumbnail'" :'value="/images/no-image.png"')?> maxlength="50" title="Character limit 50" required> <br>
 
             <label for="invPrice">Price:</label> <br>
-            <input type="text" name="invPrice" id="invPrice" <?=(isset($invPrice) ? "value='$invPrice'" : '') ?> autocomplete="none" maxlength="10" required> <br>
+            <input type="text" name="invPrice" id="invPrice" placeholder="$" <?=(isset($invPrice) ? "value='$invPrice'" : '') ?> autocomplete="none" maxlength="10" title="Max Price 9,999,999.99; Do not include commas" required> <br>
             
             <label for="invStock">Stock:</label> <br>
-            <input type="text" name="invStock" id="invStock" <?=(isset($invStock) ? "value='$invStock'" : '') ?> autocomplete="none" maxlength="6" required> <br> <br>
+            <input type="text" name="invStock" id="invStock" placeholder="#" <?=(isset($invStock) ? "value='$invStock'" : '') ?> autocomplete="none" maxlength="6" title="Max quantity 999,999; Do not include commas" required> <br> <br>
 
             
             <input type="submit" id="register_submit" name="submit" value="Register">

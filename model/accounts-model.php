@@ -31,4 +31,44 @@ function regClient($clientFirstname, $clientLastname, $clientEmail, $clientPassw
     return $rowsChanged;
 }
 
+// prevent duplication of email records, no two users can have the same address
+function checkExistingEmail($clientEmail) {
+    //connect
+    $db = phpmotorsConnect();
+
+    //prepare squirrel
+    $sql = 'SELECT clientEmail FROM clients WHERE clientEmail = :email;';
+
+    //load squirrel into connection
+    $stmt = $db->prepare($sql);
+
+    //replace placeholders
+    $stmt->bindValue(':email', $clientEmail,PDO::PARAM_STR);
+
+    //launch squirrels
+    $stmt->execute();
+
+    //make an array of matching emails
+    $matchEmail = $stmt->fetch(PDO::FETCH_NUM);
+
+    //end interaction
+    $stmt->closeCursor();
+
+    //if empty, we're good, 0; else, uh oh
+    return (empty($matchEmail)) ? 0 : 1 ;
+}
+
+//get client data
+function getClient($clientEmail){
+    //squirrelly things
+    $db = phpmotorsConnect();
+    $sql = 'SELECT clientId, clientFirstname, clientLastname, clientEmail, clientLevel, clientPassword FROM clients WHERE clientEmail = :email;';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':email', $clientEmail,PDO::PARAM_STR);
+    $stmt->execute();
+    $clientData = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $clientData;
+}
+
 ?>
