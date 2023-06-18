@@ -37,8 +37,6 @@ function addVehicle($invMake, $invModel, $invDescription, $invImage, $invThumbna
 
 }
 
-
-
 //add a car classification to the carclassification table
 function addClassification($classificationName) {
 
@@ -66,7 +64,6 @@ function addClassification($classificationName) {
     return $rowsChanged;
     //success if 1 (true), fail if more or less true (n < 1, 1 < n)
 }
-
 
 function getInventoryByClassification($classificationId) {
     # get vehicles by classification id
@@ -112,6 +109,17 @@ function updateVehicle($invId, $invMake, $invModel, $invDescription, $invImage, 
     $stmt->bindValue(':classificationId', $classificationId, PDO::PARAM_INT);
     $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
 
+    $stmt->execute();
+    $rowsChanged = $stmt->rowCount();
+    $stmt->closeCursor();
+    return $rowsChanged;
+}
+
+function deleteVehicle($invId) {
+    $db = phpmotorsConnect();
+    $sql = 'DELETE FROM inventory WHERE invId = :invId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
     $stmt->execute();
     $rowsChanged = $stmt->rowCount();
     $stmt->closeCursor();

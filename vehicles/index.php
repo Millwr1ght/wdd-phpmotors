@@ -189,7 +189,46 @@
 
             break;
 
+        case 'del':
+            $invId = filter_input(INPUT_GET, 'invId', FILTER_VALIDATE_INT);
+            $invInfo = getInvItemInfo($invId);
+            $invInfo = $invInfo[0];
 
+            if (count($invInfo) < 1) {
+                $message = '<p>Sorry, no vehicle information could be found.';
+            }
+            
+            include '../view/vehicle-delete.php';
+            exit;
+
+            break;
+
+        case 'vehicle-deleted':
+
+            //filter POST data
+            $invId = trim(filter_input(INPUT_POST, 'invId', FILTER_SANITIZE_NUMBER_INT));
+            $invMake = trim(filter_input(INPUT_POST, 'invMake', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+            $invModel = trim(filter_input(INPUT_POST, 'invModel', FILTER_SANITIZE_FULL_SPECIAL_CHARS)); 
+
+            //got the data? trash it.
+            $deleteOutcome = deleteVehicle($invId);
+            
+            if ($deleteOutcome) {
+                //no more data
+                $message = "<p> Successfully removed $invMake $invModel from the inventory!</p>";
+                $_SESSION['message'] = $message;
+                header('Location: /phpmotors/vehicles/');
+                exit;
+            } else {
+                //got data! still! maybe!
+                $message = "<p>Sorry, but $invMake $invModel was not deleted.</p>";
+                $_SESSION['message'] = $message;
+                //redirect, scrub data
+                header('Location: /phpmotors/vehicles/');
+                exit;
+            }
+
+            break;
 
         case 'vehicles':
         default:
