@@ -30,7 +30,7 @@ if (!$_SESSION['loggedin']
         }
         ?>
 
-        <form class="register-form" method="post" action="/phpmotors/vehicles/index.php">
+        <form class="register-form" method="post" action="/phpmotors/vehicles/">
 
 
             <label for="invMake">Make:</label> <br>

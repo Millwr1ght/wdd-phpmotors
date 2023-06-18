@@ -31,7 +31,7 @@ if (!$_SESSION['loggedin']
         }
         ?>
 
-        <form class="register-form" method="post" action="/phpmotors/vehicles/index.php">
+        <form class="register-form" method="post" action="/phpmotors/vehicles/">
 
             <label for="classificationName">Classification Name:</label> <br>
             <span class="hint">Character limit 30</span> <br>

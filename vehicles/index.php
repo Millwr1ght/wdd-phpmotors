@@ -50,7 +50,6 @@
             echo json_encode($inventoryArray); 
             break;
 
-
         case 'vehicle-added':
 
             //filter data
@@ -131,6 +130,20 @@
 
         case 'add-class':
             include '../view/add-classification.php';
+            break;
+        
+        case 'mod':
+            # modify vehicle data
+            $invId = filter_input(INPUT_GET, 'invId', FILTER_VALIDATE_INT);
+            $invInfo = getInvItemInfo($invId);
+            $invInfo = $invInfo[0];
+
+            if (count($invInfo) < 1) {
+                $message = '<p>Sorry, no vehicle information could be found.';
+            }
+            include '../view/vehicle-update.php';
+            exit;
+
             break;
         
         case 'vehicles':

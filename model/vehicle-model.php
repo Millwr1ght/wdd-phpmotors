@@ -80,5 +80,17 @@ function getInventoryByClassification($classificationId) {
     return $inventory;
 }
 
+function getInvItemInfo($invId) {
+    # get data from inventory table based on inventory id
+    $db = phpmotorsConnect();
+    $sql = 'SELECT * FROM inventory WHERE invId = :invId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+    $stmt->execute();
+    $invInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $invInfo;
+}
+
 
 ?>
