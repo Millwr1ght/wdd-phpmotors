@@ -6,6 +6,11 @@ if (!$_SESSION['loggedin']
     header('Location: /phpmotors/?action=log_in_first');
     exit;
 }
+
+if (isset($_SESSION['message'])) {
+    $message = $_SESSION['message'];
+}
+
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -27,18 +32,21 @@ if (!$_SESSION['loggedin']
         <a href="/phpmotors/vehicles/index.php?action=add-vehicle">Add Vehicle</a> <br> <br>
         <a href="/phpmotors/vehicles/index.php?action=add-class">Add Classification</a> <br> <br>
 
-        <?= (isset($message)) ? $message : '' ; ?>
-        <?= (isset($classificationList)) ? 
-                '<h2>Vehicles By Classification</h2>'.
-                '<p>Choose a classification to see those vehicles</p>'.
-                $classificationList 
-                : ''; ?>
-                   
-        <noscript>
-            <p><strong>JavaScript Must Be Enabled to Use this Page.</strong></p>
-        </noscript>
+        <section class="divider-top">
+            <?= (isset($message)) ? $message : '' ; ?>
+            <?= (isset($classificationList)) ? 
+                    '<h2>Vehicles By Classification</h2>'.
+                    '<p>Choose a classification to see those vehicles</p>'.
+                    $classificationList 
+                    : ''; ?>
+                    
+            <noscript>
+                <p><strong>JavaScript Must Be Enabled to Use this Page.</strong></p>
+            </noscript>
 
-        <table id="inventoryDisplay"></table>
+            <table id="inventoryDisplay"></table>
+        </section>
+        
 
     </main>
 
@@ -46,4 +54,4 @@ if (!$_SESSION['loggedin']
     <script src="../js/inventory.js"></script>
 </body>
 
-</html>
+</html><?php unset($_SESSION['message']); ?>

@@ -42,8 +42,8 @@ if (isset($invInfo['invMake']) && isset($invInfo['invModel'])) {
         <form class="register-form" method="post" action="/phpmotors/vehicles/">
 
             <label for="invMake">Make:</label> <br>
-            <input type="text" name="invMake" id="invMake"
-                <?=(isset($invMake) 
+            <input type="text" name="invMake" id="invMake" <?=
+                (isset($invMake) 
                     ? "value='$invMake'" 
                     : ((isset($invInfo['invMake'])) 
                         ? "value='$invInfo[invMake]'" 
@@ -52,8 +52,8 @@ if (isset($invInfo['invMake']) && isset($invInfo['invModel'])) {
                 maxlength="30" title="Character limit 30" autocomplete="none" required> <br>
 
             <label for="invModel">Model:</label> <br>
-            <input type="text" name="invModel" id="invModel" 
-                <?=(isset($invModel) 
+            <input type="text" name="invModel" id="invModel" <?=
+                (isset($invModel) 
                     ? "value='$invModel'" 
                     : ((isset($invInfo['invModel'])) 
                         ? "value='$invInfo[invModel]'" 
@@ -66,9 +66,11 @@ if (isset($invInfo['invMake']) && isset($invInfo['invModel'])) {
 
             <label for="classificationId">Vehicle Classification:</label> <br>
             <select name="classificationId" id="classificationId">
+                <?php console_log( $classificationId .', '. $invInfo['classificationId'] );
+                console_log($carclassifications);?>
                 <option>Choose a Category</option>
                 <?php foreach ($carclassifications as $classification): ?>
-                <option value="<?=$classification['classificationId']?>" <?=( isset($classificationId) && $classificationId === $classification['classificationId'] ? 'selected' : ((isset($invInfo['classificationId']) && $invInfo['classificationId'] === $classification['classificationId']) ? 'selected' : '')) ?> ><?=$classification['classificationName']?></option>
+                <option value="<?=$classification['classificationId']?>" <?=( isset($classificationId) && $classificationId == $classification['classificationId'] ? 'selected' : ((isset($invInfo['classificationId']) && $invInfo['classificationId'] == $classification['classificationId']) ? 'selected' : '')) ?> ><?=$classification['classificationName']?></option>
                 <?php endforeach; //did you know that you could do this like this with php? wild. ?>
 
             </select> <br> <br>
@@ -93,6 +95,13 @@ if (isset($invInfo['invMake']) && isset($invInfo['invModel'])) {
             <input type="reset"  id="register_reset" value="Reset">
 
             <input type="hidden" name="action" value="vehicle-modded">
+            <input type="hidden" name="invId" value="<?= 
+                (isset($invInfo['invId'])) 
+                    ? $invInfo['invId'] 
+                    : ((isset($invId))
+                        ? $invId
+                        : '');
+                ?>">
 
         </form>
 
