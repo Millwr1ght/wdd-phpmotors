@@ -15,6 +15,7 @@ if (!$_SESSION['loggedin']) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/phpmotors/favicon.ico" rel="icon" type="image/x-icon" />
     <link rel="stylesheet" href="/phpmotors/css/style.css" media="screen">
     <title>PHP Motors | <?=$title?></title>
 </head>
@@ -32,6 +33,10 @@ if (!$_SESSION['loggedin']) {
             <?php echo "<ul>"; foreach ($_SESSION['clientData'] as $dataKey => $dataValue):?>
             <li><?=str_replace($search, $replace, $dataKey)?>: <?=$dataValue?></li>
             <?php endforeach; echo "</ul>"?>
+
+            <p><a href='/phpmotors/accounts/?action=mod&clientId=<?=(isset($_SESSION['clientData']['clientId'])) ? $_SESSION['clientData']['clientId'] :'';?>' title='Click to modify'>Modify Account Details</a></p>
+            <p><a href='/phpmotors/accounts/?action=del&clientId=<?=(isset($_SESSION['clientData']['clientId'])) ? $_SESSION['clientData']['clientId'] :'';?>' title='Click to delete'>Delete Account</a></p>
+
         </section>
         
         <?= ($_SESSION['clientData']['clientLevel'] > 1) 
