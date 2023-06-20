@@ -12,7 +12,7 @@
 
 <body>
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/header.php'; ?>
-    <?php echo $nav_list; //require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; ?>
+    <?= $nav_list ?>
 
     <main>
         <h1>Welcome to PHP Motors!</h1>
@@ -78,4 +78,4 @@
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>
 </body>
 
-</html>
+</html><?php unset($_SESSION['message']); ?>

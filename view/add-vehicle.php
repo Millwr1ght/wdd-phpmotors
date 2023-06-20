@@ -19,8 +19,9 @@ if (!$_SESSION['loggedin']
 </head>
 
 <body>
-    <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/header.php'; ?>
-    <?php echo $nav_list; //require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; ?>
+<?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/header.php'; ?>
+
+    <?= $nav_list . layBreadcrumbs($title) ?>
 
     <main>
         <h1><?=$title?> to Inventory</h1>

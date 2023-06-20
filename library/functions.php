@@ -31,6 +31,29 @@ function buildNav($classifications){
     return $nav_list;
 }
 
+function layBreadcrumbs($pageTitle = null, $separator = '&raquo;', $home = 'Home') {
+    # build a string of breadcrumb links based on $_SEREVER['REQUEST_URI']
+    # e.g.: Home[link] -> Admin[link] -> $pageTitle (no link)
+
+    # get current location in site
+    $crumbs = array_filter(explode('/', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)));
+    $path = '/';
+    
+    # build rest of breadcrumbs
+    foreach ($crumbs as $x => $crumb) {
+        $name = ucwords(str_replace("phpmotors", $home, $crumb));
+        $path .= $crumb . '/';
+        $breadcrumbs[] = "<a href=\"$path\">$name</a>";
+    }
+
+    # add this page title to the end
+    if (isset($pageTitle)) {
+        $breadcrumbs[] = "<a>$pageTitle</a>";
+    }
+
+    # return span with impolded array
+    return "<span class='breadcrumbs'>" . implode($separator, $breadcrumbs) . "</span>";
+}
 
 function buildClassificationsList($classifications) {
     # build a select/option dropdown with the car classifications as options

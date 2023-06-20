@@ -28,8 +28,7 @@ if (isset($invInfo['invMake']) && isset($invInfo['invModel'])) {
 
 <body>
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/header.php'; ?>
-    <?php echo $nav_list; //require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; 
-    ?>
+    <?= $nav_list . layBreadcrumbs($title) ?>
 
     <main>
         <h1><?= $title ?></h1>
