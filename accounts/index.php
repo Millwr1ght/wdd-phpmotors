@@ -20,8 +20,14 @@
     //get classifications
     $classifications = getClassifications();
 
-    //get nav
+    //build elements
     $nav_list = buildNav($classifications);
+
+    $admin_section = 
+    '<section class="administration divider-top">'.
+        '<h2>Administration</h2>'.
+        '<p><a href="/phpmotors/vehicles/">Vehicle Management</a></p>'.
+    '</section>';
 
     //decide which webpage to show
     $action = filter_input(INPUT_POST, 'action');
@@ -69,13 +75,6 @@
                 include '../view/register.php';
                 exit;
             }
-
-            // //confirm password
-            // if($clientPassword !== $confirmPassword) {
-            //     $message = '<p>Passwords should match.</p>';
-            //     include '../view/register.php';
-            //     exit;
-            // }
 
             //check for duplicate records. if duplicate, go to start
             $existingEmail = checkExistingEmail($clientEmail);
@@ -127,7 +126,7 @@
             }
 
             //data exists, get data
-            $clientData = getClient($clientEmail);
+            $clientData = getClientUsingEmail($clientEmail);
 
             //validate data again
             $hash_check = password_verify($clientPassword, $clientData['clientPassword']);
@@ -137,8 +136,7 @@
                 include '../view/login.php';
                 exit;                
             }
-
-
+            
             //success        
             unset($message);
 
@@ -149,16 +147,143 @@
             // store the rest
             $_SESSION['clientData'] = $clientData;
 
-            //header('Location: /phpmotors/index.php');
-            include '../view/admin.php';
+            //header('Location: /phpmotors/');
+            //include '../view/admin.php';
+            header('Location: /phpmotors/accounts/');
             exit;
             
             break;
 
-        case'login':
+        case 'login':
             include '../view/login.php';
             break;
 
+        case 'client-update-account':
+            //filter data, store data
+            $clientFirstname = trim(filter_input(INPUT_POST, 'clientFirstname', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+            $clientLastname = trim(filter_input(INPUT_POST, 'clientLastname', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+            $clientEmail = trim(filter_input(INPUT_POST, 'clientEmail', FILTER_SANITIZE_EMAIL));
+            $clientId = trim(filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT));
+
+            $clientEmail = checkEmail($clientEmail);
+           
+            //check if missing data
+            if (empty($clientFirstname) || empty($clientLastname) || empty($clientEmail)) {
+                $_SESSION['message'] = '<p>Please provide information for all empty form fields.</p>';
+                $_SESSION['message_location'] = 'update-account';
+                include '../view/client-update.php';
+                exit;
+            }
+
+            //check for duplicate records. if duplicate, go to start
+            $emailInUse = $_SESSION['clientData']['clientEmail'] == $clientEmail;
+
+            if ($emailInUse) {
+                $_SESSION['message'] = '<p>This email address is already used by another user: You! Try again.</p>';
+                $_SESSION['message_location'] = 'update-account';
+                include '../view/client-update.php';  
+                exit;
+            }
+
+            $existingEmail = checkExistingEmail($clientEmail);
+
+            if ($existingEmail) {
+                $_SESSION['message'] = '<p>This email address is already used by another user. Try again.</p>';
+               $_SESSION['message_location'] = 'update-account';
+               include '../view/client-update.php';  
+               exit;
+            }
+
+            //we have the data, send it
+            $updatedClient = updateClient($clientId, $clientFirstname, $clientLastname, $clientEmail);
+            
+            if ($updatedClient === 1) {
+                // update session info
+                $clientData = getClientUsingId($clientId);
+                array_pop($clientData);
+                $_SESSION['clientData'] = $clientData;
+
+                
+                $_SESSION['message'] = "Your account has been updated $clientFirstname.";
+                header('Location: /phpmotors/accounts/');
+                exit;
+            } else {
+                $_SESSION['message'] = "<p>Sorry $clientFirstname, but it looks like something went wrong</p>";
+                $_SESSION['message_location'] = 'update-account';
+                include '../view/client-update.php';
+                exit;
+            }
+
+            break;
+
+        case 'client-update-password':
+            //filter new data, store new data, validate new data
+            $clientPassword = trim(filter_input(INPUT_POST, 'clientPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+            $clientId = trim(filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT));
+
+            $checkPassword = checkPassword($clientPassword);
+
+            //check if missing new data
+            if (empty($checkPassword)) {
+                $_SESSION['message'] = '<p>Please provide information for all empty form fields.</p>';
+                $_SESSION['message_location'] = 'update-password';
+                include '../view/client-update.php';
+                exit;
+            }
+
+            // remake hash browns
+            $hashedPassword = password_hash($clientPassword, PASSWORD_DEFAULT);
+
+            //we have the data, send it
+            $passwordOutcome = updatePassword($clientId, $hashedPassword);
+            
+            if ($passwordOutcome === 1) {
+                $_SESSION['message'] = "Thank you for updating your password $clientFirstname.";
+                header('Location: /phpmotors/accounts/');
+                exit;
+            } else {
+                $_SESSION['message'] = "<p>Sorry $clientFirstname, but it looks like something went wrong...</p>";
+                $_SESSION['message_location'] = 'update-password';
+                include '../view/client-update.php';
+                exit;
+            }
+
+            break;
+
+        case 'mod':
+            include '../view/client-update.php';
+            break;
+            
+        case 'client-delete-account':
+            //filter POST data
+            $clientId = trim(filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_NUMBER_INT));
+            $clientFirstname = trim(filter_input(INPUT_POST, 'clientFirstname', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+            $clientLastname = trim(filter_input(INPUT_POST, 'clientLastname', FILTER_SANITIZE_FULL_SPECIAL_CHARS)); 
+
+            //got the data? trash it.
+            $deleteOutcome = deleteClient($clientId);
+            
+            if ($deleteOutcome) {
+                //no more data
+                $message = "<p> Successfully removed account belonging to $clientFirstname $clientLastname.</p>";
+                $_SESSION['message'] = $message;
+                header('Location: /phpmotors/accounts/?action=logout');
+                exit;
+            } else {
+                //got data maybe?
+                $message = "<p>Sorry, but $clientFirstname $clientLastname\'s account was not deleted.</p>";
+                $_SESSION['message'] = $message;
+                //redirect, scrub data
+                header('Location: /phpmotors/accounts/');
+                exit;
+            }
+
+            break;
+            
+        case 'del':
+            include '../view/client-delete.php';
+            break;
+        
         default:
             include '../view/admin.php';
             break;

@@ -59,16 +59,72 @@ function checkExistingEmail($clientEmail) {
 }
 
 //get client data
-function getClient($clientEmail){
+function getClientUsingEmail(string $clientEmail){
     //squirrelly things
     $db = phpmotorsConnect();
     $sql = 'SELECT clientId, clientFirstname, clientLastname, clientEmail, clientLevel, clientPassword FROM clients WHERE clientEmail = :email;';
     $stmt = $db->prepare($sql);
-    $stmt->bindValue(':email', $clientEmail,PDO::PARAM_STR);
+    $stmt->bindValue(':email', $clientEmail, PDO::PARAM_STR);
     $stmt->execute();
     $clientData = $stmt->fetch(PDO::FETCH_ASSOC);
     $stmt->closeCursor();
     return $clientData;
+}
+
+//get client data
+function getClientUsingId(int $clientId){
+    //squirrelly things
+    $db = phpmotorsConnect();
+    $sql = 'SELECT clientId, clientFirstname, clientLastname, clientEmail, clientLevel, clientPassword FROM clients WHERE clientId = :id;';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':id', $clientId, PDO::PARAM_INT);
+    $stmt->execute();
+    $clientData = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $clientData;
+}
+
+function updateClient($clientId, $clientFirstname, $clientLastname, $clientEmail) {
+    $db = phpmotorsConnect();
+    $sql = 'UPDATE clients SET clientFirstname = :clientFirstname, clientLastname = :clientLastname, clientEmail = :clientEmail WHERE clientId = :clientId;';
+    $stmt = $db->prepare($sql);
+
+    //replace placeholders
+    $stmt->bindValue(':clientFirstname', $clientFirstname,PDO::PARAM_STR);
+    $stmt->bindValue(':clientLastname', $clientLastname,PDO::PARAM_STR);
+    $stmt->bindValue(':clientEmail', $clientEmail,PDO::PARAM_STR);
+    $stmt->bindValue(':clientId', $clientId,PDO::PARAM_INT);
+
+    $stmt->execute();
+    $rowsChanged = $stmt->rowCount();
+    $stmt->closeCursor();
+    return $rowsChanged;
+}
+
+function updatePassword($clientId, $clientPassword) {
+    $db = phpmotorsConnect();
+    $sql = 'UPDATE clients SET clientPassword = :clientPassword WHERE clientId = :clientId;';
+    $stmt = $db->prepare($sql);
+
+    //replace placeholders
+    $stmt->bindValue(':clientPassword', $clientPassword,PDO::PARAM_STR);
+    $stmt->bindValue(':clientId', $clientId,PDO::PARAM_INT);
+
+    $stmt->execute();
+    $rowsChanged = $stmt->rowCount();
+    $stmt->closeCursor();
+    return $rowsChanged;
+}
+
+function deleteClient($clientId) {
+    $db = phpmotorsConnect();
+    $sql = 'DELETE FROM clients WHERE clientId = :clientId';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':clientId', $clientId, PDO::PARAM_INT);
+    $stmt->execute();
+    $rowsChanged = $stmt->rowCount();
+    $stmt->closeCursor();
+    return $rowsChanged;
 }
 
 ?>

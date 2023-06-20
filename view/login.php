@@ -29,7 +29,7 @@
         <form class="login-form"  method="post" action="/phpmotors/accounts/">
 
             <label for="clientEmail">Email:</label> <br>
-            <input type="email" name="clientEmail" id="clientEmail" <?= (isset($clientEmail)) ? "value='$clientEmail'" : '' ;?> autocomplete="email" required> <br>
+            <input type="email" name="clientEmail" id="clientEmail" <?= (isset($clientEmail)) ? "value='$clientEmail'" : '' ;?> autocomplete="email" required autofocus> <br>
             
             <label for="clientPassword">Password:</label> <br>
             <span class="hint">Passwords must have 8+ characters, and at least 1 number, 1 Capital Letter and 1 special character.</span> <br>
