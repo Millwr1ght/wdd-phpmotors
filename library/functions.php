@@ -48,7 +48,7 @@ function layBreadcrumbs($pageTitle = null, $separator = '&raquo;', $home = 'Home
 
     # add this page title to the end
     if (isset($pageTitle)) {
-        $breadcrumbs[] = "<a>$pageTitle</a>";
+        $breadcrumbs[] = "<a href=\"#\">$pageTitle</a>";
     }
 
     # return span with impolded array

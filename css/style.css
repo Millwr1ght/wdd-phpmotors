@@ -383,6 +383,6 @@ section.upgrades .card-img {
     border-top: 4px solid var(--dark-gray);
 }
 
-span.breadcrumbs:last-child {
+a[href="#"] {
     pointer-events: none;
 }
