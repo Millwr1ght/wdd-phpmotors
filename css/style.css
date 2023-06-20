@@ -140,7 +140,7 @@ footer #last-updated {
 
 main {
     margin: 0 auto;
-    padding-bottom: 2.5rem;
+    padding: 0 1em 2.5rem;
 }
 
 /* content styling */
@@ -381,4 +381,8 @@ section.upgrades .card-img {
 
 .divider-top {
     border-top: 4px solid var(--dark-gray);
+}
+
+a[href="#"] {
+    pointer-events: none;
 }

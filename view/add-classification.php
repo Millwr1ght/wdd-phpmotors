@@ -1,6 +1,6 @@
 <?php $title = 'Add Classification';
 if (!$_SESSION['loggedin']
-|| ($_SESSION['loggedin'] && $_SESSION['clientData']['clientLevel'] <= 1)) {
+|| ($_SESSION['loggedin'] && $_SESSION['clientData']['clientLevel'] < 2)) {
     # if not logged in, or if logged in but not an admin, redirect to home
     header('Location: /phpmotors/?action=log_in_first');
     exit;
@@ -13,14 +13,14 @@ if (!$_SESSION['loggedin']
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/phpmotors/favicon.ico" rel="icon" type="image/x-icon" />
     <link rel="stylesheet" href="/phpmotors/css/style.css" media="screen">
     <title>PHP Motors | <?= $title ?></title>
 </head>
 
 <body>
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/header.php'; ?>
-    <?php echo $nav_list; //require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; 
-    ?>
+    <?= $nav_list . layBreadcrumbs($title) ?>
 
     <main>
         <h1>Add a vehicle classification</h1>
@@ -31,7 +31,7 @@ if (!$_SESSION['loggedin']
         }
         ?>
 
-        <form class="register-form" method="post" action="/phpmotors/vehicles/index.php">
+        <form class="register-form" method="post" action="/phpmotors/vehicles/">
 
             <label for="classificationName">Classification Name:</label> <br>
             <span class="hint">Character limit 30</span> <br>

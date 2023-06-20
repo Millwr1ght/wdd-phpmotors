@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/phpmotors/favicon.ico" rel="icon" type="image/x-icon" />
     <link rel="stylesheet" href="/phpmotors/css/style.css" media="screen">
     <title>PHP Motors | <?=$title?></title>
 </head>
@@ -28,7 +29,7 @@
         <form class="login-form"  method="post" action="/phpmotors/accounts/">
 
             <label for="clientEmail">Email:</label> <br>
-            <input type="email" name="clientEmail" id="clientEmail" <?=(isset($clientEmail) ? "value='$clientEmail'":'')?> autocomplete="email" required> <br>
+            <input type="email" name="clientEmail" id="clientEmail" <?= (isset($clientEmail)) ? "value='$clientEmail'" : '' ;?> autocomplete="email" required autofocus> <br>
             
             <label for="clientPassword">Password:</label> <br>
             <span class="hint">Passwords must have 8+ characters, and at least 1 number, 1 Capital Letter and 1 special character.</span> <br>
@@ -40,7 +41,7 @@
             <input type="hidden" name="action" value="logged-in">
         </form>
 
-        <a class="register-link" href="index.php?action=register">Not a member yet? <strong>Sign up here!</strong></a>
+        <p><a class="register-link" href="/phpmotors/accounts/?action=register">Not a member yet? <strong>Sign up here!</strong></a></p>
     </main>
 
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>

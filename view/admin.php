@@ -1,4 +1,4 @@
-<?php $title = 'Admin';
+<?php $title = ($_SESSION['clientData']['clientLevel'] > 1) ? 'Administration' : 'My Account';
 $search = array('client', 'Id', 'name');
 $replace = array('', 'User Id', ' name');
 
@@ -8,6 +8,10 @@ if (!$_SESSION['loggedin']) {
     exit;
 }
 
+if (isset($_SESSION['message'])) {
+    $message = $_SESSION['message'];
+}
+
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -15,16 +19,23 @@ if (!$_SESSION['loggedin']) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/phpmotors/favicon.ico" rel="icon" type="image/x-icon" />
     <link rel="stylesheet" href="/phpmotors/css/style.css" media="screen">
     <title>PHP Motors | <?=$title?></title>
 </head>
 
 <body>
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/header.php'; ?>
-    <?php echo $nav_list; //require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/nav.php'; ?>
+    <?= $nav_list . layBreadcrumbs($title) ?>
 
     <main>
         <h1>Welcome <?=$_SESSION['clientData']['clientFirstname']?></h1>
+
+        <?php
+        if (isset($message)){
+            echo $message;
+        }
+        ?>
 
         <section>
             <h2>Account Information:</h2>
@@ -32,16 +43,15 @@ if (!$_SESSION['loggedin']) {
             <?php echo "<ul>"; foreach ($_SESSION['clientData'] as $dataKey => $dataValue):?>
             <li><?=str_replace($search, $replace, $dataKey)?>: <?=$dataValue?></li>
             <?php endforeach; echo "</ul>"?>
+
+            <p><a href='/phpmotors/accounts/?action=mod' title='Click to modify'>Modify Account Details</a></p>
+            <p><a href='/phpmotors/accounts/?action=del' title='Click to delete'>Delete Account</a></p>
+
         </section>
         
-        <?= ($_SESSION['clientData']['clientLevel'] > 1) 
-        ? '<section class="administration divider-top">
-            <h2>Administration</h2>
-            <p><a href="/phpmotors/vehicles/">Vehicle Management</a></p>
-        </section>' 
-        : '' ; #if user level 2+, link to vehicle management?>
+        <?= ($_SESSION['clientData']['clientLevel'] > 1) ? $admin_section : '' ; # if user is admin, add admin section?>
     </main>
 
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>
 </body>
-</html>
+</html><?php unset($_SESSION['message']); ?>
