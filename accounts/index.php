@@ -128,6 +128,12 @@
             //data exists, get data
             $clientData = getClientUsingEmail($clientEmail);
 
+            if(empty($clientData)){
+                $message = '<p>This user does not exist. Try again.</p>';
+                include '../view/login.php';
+                exit;
+            }
+
             //validate data again
             $hash_check = password_verify($clientPassword, $clientData['clientPassword']);
 
