@@ -1,6 +1,6 @@
 <?php //i need to know whats happening
 
-    function console_log($output, $with_script_tags = true) {
+    function console_log($output = 'logging', $with_script_tags = true) {
         $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) . 
     ');';
     

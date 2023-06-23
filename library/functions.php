@@ -25,7 +25,7 @@ function buildNav($classifications){
     $nav_list = "<nav class='nav-top' id='page-nav'>"; 
     $nav_list .= "<a href='/phpmotors/' title='View the PHP Motors home page'>Home</a>";
     foreach ($classifications as $classification) {
-        $nav_list .= "<a href='/phpmotors/?action=".urlencode($classification['classificationName'])."' title='View our $classification[classificationName] product line'>$classification[classificationName]</a>";
+        $nav_list .= "<a href='/phpmotors/vehicles/?action=classification&classificationName=".urlencode($classification['classificationName'])."' title='View our $classification[classificationName] product line'>$classification[classificationName]</a>";
     }
     $nav_list .= "</nav>";
     return $nav_list;
@@ -72,7 +72,48 @@ function buildClassificationsList($classifications) {
     return $list;
 }
 
+function buildVehicleDisplay($vehicleArray, $debug = false) {
+    # build html card array
+    if ($debug) {
+        # unless debug, then just output data array
+        return var_export($vehicleArray, true);
+    }
 
+    $display = "<section class='vehicle-display'>";
+    $display .= "<ul class='vehicle-list'>";
 
+    # deal cards
+    foreach ($vehicleArray as $vehicle) {
+        # card prep
+        $cardId = $vehicle['invId'];
+        $cardTitle = $vehicle['invMake'] ." ". $vehicle['invModel'];
+        $cardDescription = $vehicle['invDescription'];
+        $cardThumbnail =  imageExists($vehicle['invThumbnail']);
+        $cardPrice = $vehicle['invPrice'];
+        $cardStock = $vehicle['invStock'];
+        
+        # card build
+        $card = "<li class='vehicle-card'>";
+        $card .= "<a href='/phpmotors/vehicles/?action=listing?invId=$cardId'>";
+        $card .= "<img class='vc__img' src='$cardThumbnail' alt='Image of $cardTitle'>";
+        $card .= "<hr>";
+        $card .= "<h2 class='vc__title'>$cardTitle</h2>";
+        $card .= "<span class='vc__price'>$$cardPrice</span>";
+        $card .= "</a>";
+        $card .= "</li>";
+        
+        # card deal
+        $display .= $card;
+    }
+    
+    $display .= '</ul></section>';
+    return $display;
+}
+
+function imageExists($src) : String {
+    # @getimagesize() returns false if it throws an error (i.e.: img does not exist)
+    # check if exists ? src good : default 
+    return (@getimagesize($src)) ? $src : "../images/no-image.png";
+}
 
 ?>
