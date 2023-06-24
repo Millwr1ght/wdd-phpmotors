@@ -1,4 +1,6 @@
-<?php $title = $classificationName
+<?php 
+$notAdjectives = array('Trucks', 'SUV', 'Boats');
+$title = $classificationName . ((in_array($classificationName, $notAdjectives)) ? '' : ' vehicles');
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -17,20 +19,8 @@
     <?= $nav_list . layBreadcrumbs($title) ?>
     <main>
         <h1><?= $title ?></h1>
-
-        <?= (isset($vehicleDisplay))? $vehicleDisplay : ((isset($message))? $message:'');?>
-
-
-        <ul>
-        <li class='vehicle-card'>
-            <a href='/phpmotors/vehicles/?action=listing?invId=$cardId'>
-            <img class='vc__img' src='$cardThumbnail' alt='Image of $cardTitle'>
-            <hr>
-            <h2 class='vc__title'>$cardTitle</h2>
-            <span class='vc__price'>$$cardPrice</span>
-            </a>
-        </li>
-        </ul>
+        <?= (isset($message)) ? $message: '' ?>
+        <?= (isset($vehicleDisplay)) ? $vehicleDisplay : '' ?>
     </main>
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>
 </body>

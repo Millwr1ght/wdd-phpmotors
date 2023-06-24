@@ -87,15 +87,15 @@ function buildVehicleDisplay($vehicleArray, $debug = false) {
         # card prep
         $cardId = $vehicle['invId'];
         $cardTitle = $vehicle['invMake'] ." ". $vehicle['invModel'];
-        $cardDescription = $vehicle['invDescription'];
-        $cardThumbnail =  imageExists($vehicle['invThumbnail']);
+        //$cardDescription = $vehicle['invDescription'];
+        $cardThumbnail =  imageExists('..'.$vehicle['invThumbnail']);
         $cardPrice = $vehicle['invPrice'];
-        $cardStock = $vehicle['invStock'];
+        //$cardStock = $vehicle['invStock'];
         
         # card build
         $card = "<li class='vehicle-card'>";
         $card .= "<a href='/phpmotors/vehicles/?action=listing?invId=$cardId'>";
-        $card .= "<img class='vc__img' src='$cardThumbnail' alt='Image of $cardTitle'>";
+        $card .= "<img class='vc__img' src='$cardThumbnail' alt='A(n) $cardTitle'>";
         $card .= "<hr>";
         $card .= "<h2 class='vc__title'>$cardTitle</h2>";
         $card .= "<span class='vc__price'>$$cardPrice</span>";
@@ -113,6 +113,7 @@ function buildVehicleDisplay($vehicleArray, $debug = false) {
 function imageExists($src) : String {
     # @getimagesize() returns false if it throws an error (i.e.: img does not exist)
     # check if exists ? src good : default 
+    console_log(@getimagesize($src));
     return (@getimagesize($src)) ? $src : "../images/no-image.png";
 }
 
