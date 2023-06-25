@@ -88,17 +88,23 @@ function buildVehicleDisplay($vehicleArray, $debug = false) {
         $cardId = $vehicle['invId'];
         $cardTitle = $vehicle['invMake'] ." ". $vehicle['invModel'];
         //$cardDescription = $vehicle['invDescription'];
-        $cardThumbnail =  imageExists('..'.$vehicle['invThumbnail']);
+        //$cardImage = imageExists('..'.$vehicle['invImage']);
+        $cardThumbnail = imageExists('..'.$vehicle['invThumbnail']);
         $cardPrice = $vehicle['invPrice'];
         //$cardStock = $vehicle['invStock'];
         
         # card build
         $card = "<li class='vehicle-card'>";
-        $card .= "<a href='/phpmotors/vehicles/?action=listing?invId=$cardId'>";
+        $card .= "<div class='img-container'>";
         $card .= "<img class='vc__img' src='$cardThumbnail' alt='A(n) $cardTitle'>";
+        $card .= "</div>";
+        //$card .= "<div class='vc__flexspace'></div>";
         $card .= "<hr>";
         $card .= "<h2 class='vc__title'>$cardTitle</h2>";
         $card .= "<span class='vc__price'>$$cardPrice</span>";
+        //$card .= "<br>";
+        $card .= "<a href='/phpmotors/vehicles/?action=listing?invId=$cardId'>";
+        $card .= "<span class='vc__details'>More Details</span>";
         $card .= "</a>";
         $card .= "</li>";
         
