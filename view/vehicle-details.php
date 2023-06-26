@@ -23,31 +23,6 @@
         <div class="main-content">
             
             <?= (isset($vehicleDetails)) ? $vehicleDetails : '' ?>
-
-            <!-- <figure class="details-image">
-                <img src="..<?= $invInfo['invImage']?>" alt="No image available">
-                <figcaption></figcaption>
-            </figure>
-
-            <section class="details-content">
-                <h2>Vehicle Details</h2>
-                <div class="dc__price flex-row">
-                    <span>Price: </span>
-                    <span>$<?= $invInfo['invPrice'] ?></span>
-                </div>
-                <div class="dc__color flex-row">
-                    <span>Color: </span>
-                    <span><?= $invInfo['invColor'] ?></span>
-                </div>
-                <div class="dc__stock flex-row">
-                    <span># left in stock: </span>
-                    <span><?= $invInfo['invStock'] ?></span>
-                </div>
-                <p class="dc__description">
-                <?= $invInfo['invDescription'] ?>
-                </p>
-
-            </section> -->
         
         </div>
     

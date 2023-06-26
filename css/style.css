@@ -288,6 +288,7 @@ li.vehicle-card a {
 
 li img.vc__img {
     max-width: 100%;
+    height: auto;
 }
 
 li hr {
@@ -420,7 +421,7 @@ figure.details-image img {
     li.vehicle-card img.vc__img {
         max-width: 100%;
         height: auto;
-        flex-grow: 1;
+        /* flex-grow: 1; */
     }
 
     li h2.vc__title {

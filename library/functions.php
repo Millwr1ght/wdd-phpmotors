@@ -112,7 +112,7 @@ function buildInventoryCard($cardId, $cardTitle, $cardThumbnail, $cardPrice) {
     $card = "<li class='vehicle-card'>";
     $altText = ((str_contains($cardThumbnail, 'no-image.png')) ? "No image available for the " : "A pretty cool ") . $cardTitle;
     $card .= "<img class='vc__img' src='$cardThumbnail' alt='$altText'>"; 
-    $card .= "<hr>";
+    $card .= "<hr>"; 
     $card .= "<h2 class='vc__title'>$cardTitle</h2>";
     $card .= "<div class='flex-row'>";
     $card .= "<span class='vc__price'>$$cardPrice</span>";
@@ -120,6 +120,7 @@ function buildInventoryCard($cardId, $cardTitle, $cardThumbnail, $cardPrice) {
     $card .= "<a href='/phpmotors/vehicles/?action=details&invId=$cardId'>More Details &rarr;</a>";
     $card .= "</span>";
     $card .= "</div>";
+    
     $card .= "</li>";
     
     return $card;
