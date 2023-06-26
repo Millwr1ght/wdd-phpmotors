@@ -1,16 +1,9 @@
 <?php $title = 'Vehicle Management';
-# redirects
-if (!$_SESSION['loggedin']
-|| ($_SESSION['loggedin'] && $_SESSION['clientData']['clientLevel'] < 2)) {
-    # if not logged in, or if logged in but not an admin, redirect to home
-    header('Location: /phpmotors/?action=log_in_first');
-    exit;
-}
+checkAdminPriviledge();
 
 if (isset($_SESSION['message'])) {
     $message = $_SESSION['message'];
 }
-
 ?><!DOCTYPE html>
 <html lang="en">
 

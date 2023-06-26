@@ -1,10 +1,5 @@
 <?php $title = 'Delete';
-if (!$_SESSION['loggedin']
-|| ($_SESSION['loggedin'] && $_SESSION['clientData']['clientLevel'] < 2)) {
-    # if not logged in, or if logged in but not an admin, redirect to home
-    header('Location: /phpmotors/?action=log_in_first');
-    exit;
-}
+checkAdminPriviledge();
 
 if (isset($invInfo['invMake']) && isset($invInfo['invModel'])) {
     $title .= " $invInfo[invMake] $invInfo[invModel]";

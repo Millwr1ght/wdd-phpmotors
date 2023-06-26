@@ -1,10 +1,5 @@
 <?php $title = 'Add Classification';
-if (!$_SESSION['loggedin']
-|| ($_SESSION['loggedin'] && $_SESSION['clientData']['clientLevel'] < 2)) {
-    # if not logged in, or if logged in but not an admin, redirect to home
-    header('Location: /phpmotors/?action=log_in_first');
-    exit;
-}
+checkAdminPriviledge();
 
 ?><!DOCTYPE html>
 <html lang="en">
