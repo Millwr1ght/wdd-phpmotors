@@ -254,6 +254,7 @@
                 $message = "<p class='notice'>Sorry, that vehicle is not available.</p>";
             } else {
                 $invInfo = $invInfo[0];
+                $vehicleName = $invInfo['invMake'] .' '. $invInfo['invModel'];
 
                 # display associated vehicle image and details
                 $vehicleDetails = loadVehicleDetailsTemplate($invInfo);

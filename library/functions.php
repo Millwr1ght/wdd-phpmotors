@@ -138,29 +138,39 @@ function loadVehicleDetailsTemplate($invInfo, $debug = false) {
     $figure = "<figure class='details-image'>";
     $altText = ((str_contains($invInfo['invImage'], 'no-image.png')) ? "No image available for the " : "A pretty cool ") . $makeModel;
     $figure .= "<img src='..$invInfo[invImage]' alt='$altText'>";
-    $figcaption = "<figcaption></figcaption>";
+    //$figcaption = "<figcaption></figcaption>";
     //$figure .= $figcaption;
     $figure .= "</figure>";
 
     # information of vehicle
     $details = "<section class='details-content'>";
     $details .= "<h2>Vehicle Details</h2>";
-
+    # price
     $details .= "<div class='dc__price flex-row'>";
     $details .= "<span>Price: </span>";
     $details .= "<span>$$invInfo[invPrice]</span>";
     $details .= "</div>";
-    
-    $details .= "<div class='dc__stock flex-row'>";
-    $details .= "<span># left in stock: </span>";
-    $details .= "<span>$invInfo[invStock]</span>";
+    # make
+    $details .= "<div class='dc__make flex-row'>";
+    $details .= "<span>Make: </span>";
+    $details .= "<span>$invInfo[invMake]</span>";
     $details .= "</div>";
-    
+    # model
+    $details .= "<div class='dc__model flex-row'>";
+    $details .= "<span>Model: </span>";
+    $details .= "<span>$invInfo[invModel]</span>";
+    $details .= "</div>";
+    # color
     $details .= "<div class='dc__color flex-row'>";
     $details .= "<span>Color: </span>";
     $details .= "<span>$invInfo[invColor]</span>";
     $details .= "</div>";
-    
+    # left in stock
+    $details .= "<div class='dc__stock flex-row'>";
+    $details .= "<span># left in stock: </span>";
+    $details .= "<span>$invInfo[invStock]</span>";
+    $details .= "</div>";
+    # description
     $details .= "<p class='dc__description'>";
     $details .= $invInfo['invDescription'];
     $details .= "</p>";
@@ -176,7 +186,7 @@ function loadVehicleDetailsTemplate($invInfo, $debug = false) {
 function imageExists($src) : String {
     # @getimagesize() returns false if it throws an error (i.e.: img does not exist)
     # check if exists ? src good : default 
-    console_log(@getimagesize($src));
+    //console_log(@getimagesize($src));
     return (@getimagesize($src)) ? $src : "../images/no-image.png";
 }
 
