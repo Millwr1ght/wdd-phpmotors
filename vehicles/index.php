@@ -244,6 +244,24 @@
             include '../view/classification.php';
             break;
 
+        case 'details':
+            # get vehicle id
+            $invId = filter_input(INPUT_GET, 'invId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $invInfo = getInvItemInfo($invId);
+            
+            # validate response
+            if (count($invInfo) < 1) {
+                $message = "<p class='notice'>Sorry, that vehicle is not available.</p>";
+            } else {
+                $invInfo = $invInfo[0];
+
+                # display associated vehicle image and details
+                $vehicleDetails = loadVehicleDetailsTemplate($invInfo);
+            }
+
+            include '../view/vehicle-details.php';
+            break;
+
         case 'vehicles':
         default:
             # build a classification select dropdown and go to management

@@ -298,6 +298,19 @@ li hr {
 /* li h2.vc__title {} */
 /* li span.vc__price {} */
 
+
+/* vehicle details page */
+figure.details-image {
+    max-width: 100%;
+    max-height: 100%;
+}
+figure.details-image img {
+    max-width: 100%;
+    height: auto;
+}
+/* figure.details-image figcaption {} */
+/* section.details-content {} */
+
 /* medium (and large) screen styling ----------------*/
 @media only screen and (min-width: 768px) {
 
@@ -398,14 +411,12 @@ li hr {
         text-align: center;
         height: 300px;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: center;
         
     }
 
     /* li.vehicle-card hr {} */
-    li.vehicle-card a {
-
-    }
+    /* li.vehicle-card a {} */
 
     li.vehicle-card img.vc__img {
         max-width: 100%;
@@ -462,4 +473,11 @@ li hr {
 
 .divider-top {
     border-top: 4px solid var(--dark-gray);
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
