@@ -20,12 +20,21 @@ function checkLen($input, $length){
     return strlen($input) > $length;
 }
 
+function checkAdminPriviledge() {
+    # if not logged in, or if logged in but not an admin, redirect to home
+    if (!$_SESSION['loggedin'] || ($_SESSION['loggedin'] && $_SESSION['clientData']['clientLevel'] < 2)) {
+        header('Location: /phpmotors/');
+        exit;
+    }
+}
+
+
 function buildNav($classifications){
     # build the <nav> element in the header
     $nav_list = "<nav class='nav-top' id='page-nav'>"; 
     $nav_list .= "<a href='/phpmotors/' title='View the PHP Motors home page'>Home</a>";
     foreach ($classifications as $classification) {
-        $nav_list .= "<a href='/phpmotors/?action=".urlencode($classification['classificationName'])."' title='View our $classification[classificationName] product line'>$classification[classificationName]</a>";
+        $nav_list .= "<a href='/phpmotors/vehicles/?action=classification&classificationName=".urlencode($classification['classificationName'])."' title='View our $classification[classificationName] product line'>$classification[classificationName]</a>";
     }
     $nav_list .= "</nav>";
     return $nav_list;
@@ -72,7 +81,114 @@ function buildClassificationsList($classifications) {
     return $list;
 }
 
+function buildVehicleDisplay($vehicleArray, $debug = false) {
+    # build html card array
+    if ($debug) {
+        # unless debug, then just output data array
+        return var_export($vehicleArray, true);
+    }
 
+    $display = "<section class='vehicle-display'>";
+    $display .= "<ul class='vehicle-list'>";
 
+    # deal cards
+    foreach ($vehicleArray as $vehicle) {
+        # prep card info
+        $cardTitle = $vehicle['invMake'] ." ". $vehicle['invModel'];
+        //$cardImage = imageExists('..'.$vehicle['invImage']);
+        $cardThumbnail = imageExists('..'.$vehicle['invThumbnail']);
+        
+        # add card to deck
+        $display .= buildInventoryCard($vehicle['invId'], $cardTitle, $cardThumbnail, $vehicle['invPrice']);
+    }
+    
+    $display .= '</ul></section>';
+    return $display;
+}
+
+function buildInventoryCard($cardId, $cardTitle, $cardThumbnail, $cardPrice) {
+    # inventory card template
+    # card build
+    $card = "<li class='vehicle-card'>";
+    $altText = ((str_contains($cardThumbnail, 'no-image.png')) ? "No image available for the " : "A pretty cool ") . $cardTitle;
+    $card .= "<img class='vc__img' src='$cardThumbnail' alt='$altText'>"; 
+    $card .= "<hr>"; 
+    $card .= "<h2 class='vc__title'>$cardTitle</h2>";
+    $card .= "<div class='flex-row'>";
+    $card .= "<span class='vc__price'>$$cardPrice</span>";
+    $card .= "<span class='vc__details'>";
+    $card .= "<a href='/phpmotors/vehicles/?action=details&invId=$cardId'>More Details &rarr;</a>";
+    $card .= "</span>";
+    $card .= "</div>";
+    
+    $card .= "</li>";
+    
+    return $card;
+}
+
+function loadVehicleDetailsTemplate($invInfo, $debug = false) {
+    # from vehicle information array, build product page
+    if ($debug) {
+        # unless debug, then just output data array
+        return var_export($invInfo, true);
+    }
+
+    $makeModel = $invInfo['invMake'].' '.$invInfo['invModel'];
+
+    # image of vehicle
+    $figure = "<figure class='details-image'>";
+    $altText = ((str_contains($invInfo['invImage'], 'no-image.png')) ? "No image available for the " : "A pretty cool ") . $makeModel;
+    $figure .= "<img src='..$invInfo[invImage]' alt='$altText'>";
+    //$figcaption = "<figcaption></figcaption>";
+    //$figure .= $figcaption;
+    $figure .= "</figure>";
+
+    # information of vehicle
+    $details = "<section class='details-content'>";
+    $details .= "<h2>Vehicle Details</h2>";
+    # price
+    $details .= "<div class='dc__price flex-row'>";
+    $details .= "<span>Price: </span>";
+    $details .= "<span>$$invInfo[invPrice]</span>";
+    $details .= "</div>";
+    # make
+    $details .= "<div class='dc__make flex-row'>";
+    $details .= "<span>Make: </span>";
+    $details .= "<span>$invInfo[invMake]</span>";
+    $details .= "</div>";
+    # model
+    $details .= "<div class='dc__model flex-row'>";
+    $details .= "<span>Model: </span>";
+    $details .= "<span>$invInfo[invModel]</span>";
+    $details .= "</div>";
+    # color
+    $details .= "<div class='dc__color flex-row'>";
+    $details .= "<span>Color: </span>";
+    $details .= "<span>$invInfo[invColor]</span>";
+    $details .= "</div>";
+    # left in stock
+    $details .= "<div class='dc__stock flex-row'>";
+    $details .= "<span># left in stock: </span>";
+    $details .= "<span>$invInfo[invStock]</span>";
+    $details .= "</div>";
+    # description
+    $details .= "<p class='dc__description'>";
+    $details .= $invInfo['invDescription'];
+    $details .= "</p>";
+    
+    $details .= "</section>";
+
+    $display = $figure . $details;
+
+    return $display;
+
+}
+
+function imageExists($src) : String {
+    # @getimagesize() returns false if it throws an error (i.e.: img does not exist)
+    # check if exists ? src good : default 
+    //console_log(@getimagesize($src));
+    return (@getimagesize($src)) ? $src : "../images/no-image.png";
+}
 
 ?>

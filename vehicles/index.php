@@ -44,9 +44,9 @@
         case 'getInventoryItems': 
             // Get the classificationId 
             $classificationId = filter_input(INPUT_GET, 'classificationId', FILTER_SANITIZE_NUMBER_INT); 
-            // Fetch the vehicles by classificationId from the DB 
-            $inventoryArray = getInventoryByClassification($classificationId); 
-            // Convert the array to a JSON object and send it back 
+            // Fetch the vehicles by classificationId from the DB
+            $inventoryArray = getInventoryByClassificationId($classificationId);
+            // Convert the array to a JSON object and send it back
             echo json_encode($inventoryArray); 
             break;
 
@@ -230,9 +230,42 @@
 
             break;
 
+        case 'classification':
+            # get the classificationName from url and display associated vehicles
+            $classificationName = filter_input(INPUT_GET, 'classificationName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $vehicles = getInventoryByClassificationName($classificationName);
+            if (!count($vehicles)) {
+                # if no vehicles in array
+                $message = "<p class='notice'>Sorry, no $classificationName vehicles could be found.</p>";
+            } else {
+                $vehicleDisplay = buildVehicleDisplay($vehicles);
+            }
+
+            include '../view/classification.php';
+            break;
+
+        case 'details':
+            # get vehicle id
+            $invId = filter_input(INPUT_GET, 'invId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $invInfo = getInvItemInfo($invId);
+            
+            # validate response
+            if (count($invInfo) < 1) {
+                $message = "<p class='notice'>Sorry, that vehicle is not available.</p>";
+            } else {
+                $invInfo = $invInfo[0];
+                $vehicleName = $invInfo['invMake'] .' '. $invInfo['invModel'];
+
+                # display associated vehicle image and details
+                $vehicleDetails = loadVehicleDetailsTemplate($invInfo);
+            }
+
+            include '../view/vehicle-details.php';
+            break;
+
         case 'vehicles':
         default:
-
+            # build a classification select dropdown and go to management
             $classificationList = buildClassificationsList($carclassifications);
 
             include '../view/vehicle-management.php';

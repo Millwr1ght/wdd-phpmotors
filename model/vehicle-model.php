@@ -65,12 +65,24 @@ function addClassification($classificationName) {
     //success if 1 (true), fail if more or less true (n < 1, 1 < n)
 }
 
-function getInventoryByClassification($classificationId) {
+function getInventoryByClassificationId($classificationId) {
     # get vehicles by classification id
     $db = phpmotorsConnect();
     $sql = 'SELECT * FROM inventory WHERE classificationId = :classificationId';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':classificationId', $classificationId, PDO::PARAM_INT);
+    $stmt->execute();
+    $inventory = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    return $inventory;
+}
+
+function getInventoryByClassificationName($classificationName) {
+    # get vehicles by classification id
+    $db = phpmotorsConnect();
+    $sql = 'SELECT * FROM inventory WHERE classificationId IN ( SELECT classificationId FROM carclassification WHERE classificationName = :classificationName ) ';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':classificationName', $classificationName, PDO::PARAM_STR);
     $stmt->execute();
     $inventory = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $stmt->closeCursor();

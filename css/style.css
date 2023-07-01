@@ -26,6 +26,7 @@
 }
 
 html {
+    box-sizing: border-box;
     background-color: var(--main-white);
     margin: 0;
 }
@@ -49,6 +50,10 @@ a:active {
     text-decoration: none;
     width: 100%;
     padding: 12px;
+}
+
+a[href="#"] {
+    pointer-events: none;
 }
 
 button {
@@ -142,6 +147,9 @@ main {
     margin: 0 auto;
     padding: 0 1em 2.5rem;
 }
+
+/* p.notice {} */
+
 
 /* content styling */
 
@@ -253,6 +261,57 @@ section.upgrades .card-img {
 /* section.upgrades .card-img img {} */
 /* section.upgrades .card a {} */
 
+/* vehicles page(s) */
+/* vehicle product cards */
+/* section.vehicle-display {} */
+
+ul.vehicle-list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+li.vehicle-card{
+    margin-bottom: 0.5em;
+    padding: 0.5em;
+    border: 1px var(--light-gray) solid;
+    list-style-type: none;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+li.vehicle-card a {
+    padding: 0;
+}
+
+li img.vc__img {
+    max-width: 100%;
+    height: auto;
+}
+
+li hr {
+    max-width: 100%;
+    width: 100%;
+}
+
+/* li h2.vc__title {} */
+/* li span.vc__price {} */
+
+
+/* vehicle details page */
+figure.details-image {
+    max-width: 100%;
+    max-height: 100%;
+}
+figure.details-image img {
+    max-width: 100%;
+    height: auto;
+}
+/* figure.details-image figcaption {} */
+/* section.details-content {} */
+
 /* medium (and large) screen styling ----------------*/
 @media only screen and (min-width: 768px) {
 
@@ -274,8 +333,9 @@ section.upgrades .card-img {
         margin: auto 0.5em;
     }
 
-    /* increase nav padding */
+    /* nav */
     nav {
+        /* increase nav padding */
         padding-left: 6px;
     }
 
@@ -295,12 +355,13 @@ section.upgrades .card-img {
         padding: 20px 16px;
     }
 
+    /* footer */
     footer {
         margin-top: 0;
     }
 
-    /* hide bottom banner, show last updated */
     footer .banner-container {
+        /* hide bottom banner, show last updated */
         display: none;
     }
 
@@ -335,6 +396,38 @@ section.upgrades .card-img {
     div.main-content section.reviews {
         grid-area: 1/2/2/3;
     }
+
+    /* vehicle cards */
+    /* section.vehicle-display {} */
+
+    ul.vehicle-list {
+        flex-flow: row wrap;
+        justify-content: space-around;
+        gap: 4px;
+    }
+
+    li.vehicle-card{
+        max-width: 250px;
+        flex: 1 0 auto;
+        text-align: center;
+        height: 300px;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* li.vehicle-card hr {} */
+    /* li.vehicle-card a {} */
+
+    li.vehicle-card img.vc__img {
+        max-width: 100%;
+        height: auto;
+        /* flex-grow: 1; */
+    }
+
+    li h2.vc__title {
+        font-size: 1rem;
+    }
+    /* li span.vc__price {} */
 }
 
 
@@ -372,6 +465,11 @@ section.upgrades .card-img {
     div.main-content {
         margin: 0 auto;
     }
+
+    li.vehicle-card{
+        max-width: 300px;
+        height: 400px;
+    }
 }
 
 /* special classes */
@@ -383,6 +481,9 @@ section.upgrades .card-img {
     border-top: 4px solid var(--dark-gray);
 }
 
-a[href="#"] {
-    pointer-events: none;
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
