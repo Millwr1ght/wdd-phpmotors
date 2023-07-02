@@ -27,6 +27,7 @@
     '<section class="administration divider-top">'.
         '<h2>Administration</h2>'.
         '<p><a href="/phpmotors/vehicles/">Vehicle Management</a></p>'.
+        '<p><a href="/phpmotors/uploads/">Pictures and Images Management</a></p>'.
     '</section>';
 
     //decide which webpage to show
