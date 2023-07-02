@@ -52,10 +52,6 @@ a:active {
     padding: 12px;
 }
 
-a[href="#"] {
-    pointer-events: none;
-}
-
 button {
     background-color: inherit;
     margin: auto;
@@ -317,8 +313,21 @@ figure.details-image img {
     max-width: 100%;
     height: auto;
 }
+
+section.details-thumbnails .dt__imgbox {
+    /* hey that rhymes :) */
+    display: flex;
+    gap: 0.5em;
+    max-width: 100%;
+    max-height: 100%;
+}
+
 /* figure.details-image figcaption {} */
 /* section.details-content {} */
+
+section.details-thumbnails h2 {
+    display: block;
+}
 
 /* medium (and large) screen styling ----------------*/
 @media only screen and (min-width: 768px) {
@@ -368,7 +377,8 @@ figure.details-image img {
         margin-top: 0;
     }
 
-    footer .banner-container {
+    footer .banner-container,
+    section.details-thumbnails h2 {
         /* hide bottom banner, show last updated */
         display: none;
     }
@@ -436,6 +446,7 @@ figure.details-image img {
         font-size: 1rem;
     }
     /* li span.vc__price {} */
+
 }
 
 
@@ -477,6 +488,15 @@ figure.details-image img {
     li.vehicle-card{
         max-width: 300px;
         height: 400px;
+    }
+
+    /* vehicle details page */
+    section.details-thumbnails img {
+        transition: transform .2s;
+    }
+
+    section.details-thumbnails img:hover {
+        transform: scale(3);
     }
 }
 

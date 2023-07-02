@@ -56,7 +56,7 @@ function layBreadcrumbs($pageTitle = null, $separator = '&raquo;', $home = 'Home
 
     # add this page title to the end
     if (isset($pageTitle)) {
-        $breadcrumbs[] = "<a href=\"#\">$pageTitle</a>";
+        $breadcrumbs[] = "<span> $pageTitle</span>";
     }
 
     # return span with impolded array
@@ -215,13 +215,15 @@ function loadVehicleDetailsTemplate($invInfo, $thumbsHTML = null, $debug = false
 function wrapThumbs($thumbArray) {
     # wrap the array of extra vehicle images in HTML to be viewed beloew the main image
     $section = "<section class='details-thumbnails'>";
-
+    $section .= "<h2>More Images</h2>";
+    $section .= "<div class='dt__imgbox'>";
     # deal little cards
-    foreach($thumbArray as $thumb) {
-        $altText = "Another cool image of this great ride!";
+    foreach($thumbArray as $x => $thumb) {
+        $num = $x+2;
+        $altText = "Cool image #$num of this great ride!";
         $section .= "<img class='dt__img' src='$thumb[imgPath]' alt='$altText'>";
     }
-    
+    $section .= "</div>";
     $section .= "</section>";
 
     return $section;

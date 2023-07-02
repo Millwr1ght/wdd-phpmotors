@@ -249,12 +249,7 @@
             # get vehicle id
             $invId = filter_input(INPUT_GET, 'invId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $invInfo = getInvItemInfo($invId);
-            $invThumbs = getVehicleThumbnails($invId);
-            
-            # if thumbs, fix it
-            if (count($invThumbs) > 1) {
-                $vehicleThumbs = wrapThumbs($invThumbs);
-            }
+            $invExtraThumbs = getVehicleThumbnails($invId);
 
             # validate response
             if (count($invInfo) < 1) {
@@ -263,9 +258,15 @@
                 $invInfo = $invInfo[0];
                 $vehicleName = $invInfo['invMake'] .' '. $invInfo['invModel'];
                 
-
                 # display associated vehicle image and details
-                $vehicleDetails = loadVehicleDetailsTemplate($invInfo, $vehicleThumbs);
+                if (count($invExtraThumbs) >= 1) {
+                    # if vehicle has extra thumbs, fix it
+                    $vehicleThumbs = wrapThumbs($invExtraThumbs);
+                    $vehicleDetails = loadVehicleDetailsTemplate($invInfo, $vehicleThumbs);
+                } else {
+                    $vehicleDetails = loadVehicleDetailsTemplate($invInfo);
+                }
+               
             }
 
             include '../view/vehicle-details.php';
