@@ -77,10 +77,13 @@ function getInventoryByClassificationId($classificationId) {
     return $inventory;
 }
 
-function getInventoryByClassificationName($classificationName) {
+function getInventoryByClassificationName($classificationName, $tn = true) {
     # get vehicles by classification id
+    # only returns thumbnails unless $tn is false
     $db = phpmotorsConnect();
-    $sql = 'SELECT * FROM inventory WHERE classificationId IN ( SELECT classificationId FROM carclassification WHERE classificationName = :classificationName ) ';
+    $sql = 'SELECT i.invId, i.invMake, i.invModel, i.invDescription, im.imgPath, i.invPrice, i.invStock, i.invColor, i.classificationId FROM inventory i JOIN images im ON i.invId = im.invId WHERE i.classificationId IN ( SELECT classificationId FROM carclassification WHERE classificationName = :classificationName ) AND im.imgPrimary = 1 AND im.imgPath ';
+    $sql .= ($tn) ? '' : 'NOT' ;
+    $sql .= 'LIKE "%-tn.%";';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':classificationName', $classificationName, PDO::PARAM_STR);
     $stmt->execute();
@@ -92,7 +95,7 @@ function getInventoryByClassificationName($classificationName) {
 function getInvItemInfo($invId) {
     # get data from inventory table based on inventory id
     $db = phpmotorsConnect();
-    $sql = 'SELECT * FROM inventory WHERE invId = :invId';
+    $sql = 'SELECT i.invId, i.invMake, i.invModel, i.invDescription, im.imgPath, i.invPrice, i.invStock, i.invColor, i.classificationId FROM inventory i JOIN images im ON i.invId = im.invId WHERE i.invId = :invId AND im.imgPath NOT LIKE "%-tn.%"';
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
     $stmt->execute();
@@ -137,5 +140,16 @@ function deleteVehicle($invId) {
     $stmt->closeCursor();
     return $rowsChanged;
 }
-    
+
+// Get information for all vehicles
+function getVehicles(){
+	$db = phpmotorsConnect();
+	$sql = 'SELECT invId, invMake, invModel FROM inventory';
+	$stmt = $db->prepare($sql);
+	$stmt->execute();
+	$invInfo = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	$stmt->closeCursor();
+	return $invInfo;
+}
+
 ?>

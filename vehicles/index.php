@@ -11,6 +11,7 @@
     //models
     require_once '../model/main-model.php';
     require_once '../model/vehicle-model.php';
+    require_once '../model/uploads-model.php';
     
 
 
@@ -86,7 +87,7 @@
             }
 
             //redirect, scrubbing url form data so that reloading the page doesn't add duplicate rows
-            header('Location: /phpmotors/vehicles/index.php');
+            header('Location: /phpmotors/vehicles/');
             exit;
             break;
 
@@ -124,7 +125,7 @@
             }
 
             //redirect, scrub form data
-            header('Location: /phpmotors/vehicles/index.php');
+            header('Location: /phpmotors/vehicles/');
             exit;
             break;
 
@@ -248,16 +249,23 @@
             # get vehicle id
             $invId = filter_input(INPUT_GET, 'invId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $invInfo = getInvItemInfo($invId);
+            $invThumbs = getVehicleThumbnails($invId);
             
+            # if thumbs, fix it
+            if (count($invThumbs) > 1) {
+                $vehicleThumbs = wrapThumbs($invThumbs);
+            }
+
             # validate response
             if (count($invInfo) < 1) {
                 $message = "<p class='notice'>Sorry, that vehicle is not available.</p>";
             } else {
                 $invInfo = $invInfo[0];
                 $vehicleName = $invInfo['invMake'] .' '. $invInfo['invModel'];
+                
 
                 # display associated vehicle image and details
-                $vehicleDetails = loadVehicleDetailsTemplate($invInfo);
+                $vehicleDetails = loadVehicleDetailsTemplate($invInfo, $vehicleThumbs);
             }
 
             include '../view/vehicle-details.php';
