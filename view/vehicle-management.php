@@ -30,7 +30,7 @@ if (isset($_SESSION['message'])) {
             <?= (isset($message)) ? $message : '' ; ?>
             <?= (isset($classificationList)) ? 
                     '<h2>Vehicles By Classification</h2>'.
-                    '<label for="classificationList">Choose a classification to see those vehicles</label> <br>'.
+                    '<label for="classificationList">Choose a classification to see those vehicles: </label>'.
                     $classificationList .' <br> <br>'
                     : ''; ?>
                     
