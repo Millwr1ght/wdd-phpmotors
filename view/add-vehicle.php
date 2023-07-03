@@ -1,5 +1,5 @@
 <?php $title = 'Add Vehicle';
-checkAdminPriviledge();
+checkAdminPrivilege();
 
 ?><!DOCTYPE html>
 <html lang="en">

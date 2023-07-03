@@ -1,5 +1,5 @@
 <?php $title = 'Delete';
-checkAdminPriviledge();
+checkAdminPrivilege();
 
 if (isset($invInfo['invMake']) && isset($invInfo['invModel'])) {
     $title .= " $invInfo[invMake] $invInfo[invModel]";

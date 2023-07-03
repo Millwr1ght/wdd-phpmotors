@@ -1,5 +1,5 @@
 <?php $title = 'Image Management';
-checkAdminPriviledge();
+checkAdminPrivilege();
 
 if (isset($_SESSION['message'])) {
     $message = $_SESSION['message'];

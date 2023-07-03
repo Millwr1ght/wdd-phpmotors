@@ -20,7 +20,7 @@ function checkLen($input, $length){
     return strlen($input) > $length;
 }
 
-function checkAdminPriviledge() {
+function checkAdminPrivilege() {
     # if not logged in, or if logged in but not an admin, redirect to home
     if (!$_SESSION['loggedin'] || ($_SESSION['loggedin'] && $_SESSION['clientData']['clientLevel'] < 2)) {
         header('Location: /phpmotors/');

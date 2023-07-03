@@ -1,5 +1,5 @@
 <?php $title = 'Modify';
-checkAdminPriviledge();
+checkAdminPrivilege();
 # finish title
 if (isset($invInfo['invMake']) && isset($invInfo['invModel'])) {
     $title .= " $invInfo[invMake] $invInfo[invModel]";
