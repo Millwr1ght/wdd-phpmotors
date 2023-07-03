@@ -52,10 +52,6 @@ a:active {
     padding: 12px;
 }
 
-a[href="#"] {
-    pointer-events: none;
-}
-
 button {
     background-color: inherit;
     margin: auto;
@@ -174,6 +170,12 @@ form span.hint {
     margin-bottom: 2em;
 }
 
+form fieldset {
+    padding-left: 0;
+    margin-top: 0.5em;
+    border: none;
+}
+
 /* home page */
 /* home page hero banner */
 div.hero-banner,
@@ -186,7 +188,7 @@ div.hero-banner {
     font-size: var(--font-small);
     color: var(--dark-gray);
     display: grid;
-    grid-template-columns: 250px 1fr;
+    grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr 100px;
 }
 
@@ -209,6 +211,8 @@ div.hero-banner #hero-delorean {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+    justify-self: center;
+    align-self: center;
 }
 
 div.hero-banner #hero-call {
@@ -309,8 +313,21 @@ figure.details-image img {
     max-width: 100%;
     height: auto;
 }
+
+section.details-thumbnails .dt__imgbox {
+    /* hey that rhymes :) */
+    display: flex;
+    gap: 0.5em;
+    max-width: 100%;
+    max-height: 100%;
+}
+
 /* figure.details-image figcaption {} */
 /* section.details-content {} */
+
+section.details-thumbnails h2 {
+    display: block;
+}
 
 /* medium (and large) screen styling ----------------*/
 @media only screen and (min-width: 768px) {
@@ -360,7 +377,8 @@ figure.details-image img {
         margin-top: 0;
     }
 
-    footer .banner-container {
+    footer .banner-container,
+    section.details-thumbnails h2 {
         /* hide bottom banner, show last updated */
         display: none;
     }
@@ -428,6 +446,7 @@ figure.details-image img {
         font-size: 1rem;
     }
     /* li span.vc__price {} */
+
 }
 
 
@@ -469,6 +488,15 @@ figure.details-image img {
     li.vehicle-card{
         max-width: 300px;
         height: 400px;
+    }
+
+    /* vehicle details page */
+    section.details-thumbnails img {
+        transition: transform .2s;
+    }
+
+    section.details-thumbnails img:hover {
+        transform: scale(3);
     }
 }
 
