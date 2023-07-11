@@ -130,7 +130,7 @@ function buildInventoryCard($cardId, $cardTitle, $cardThumbnail, $cardPrice) {
     $card .= "<hr>"; 
     $card .= "<h2 class='vc__title'>$cardTitle</h2>";
     $card .= "<div class='flex-row'>";
-    $card .= "<span class='vc__price'>$$cardPrice</span>";
+    $card .= "<span class='vc__price'>$$cardPrice&nbsp;</span>";
     $card .= "<span class='vc__details'>";
     $card .= "<a href='/phpmotors/vehicles/?action=details&invId=$cardId'>More Details &rarr;</a>";
     $card .= "</span>";
@@ -154,6 +154,61 @@ function buildImageDisplay($imageArray) {
     return $id;
 }
 
+function buildReviewsDisplay($reviewsArray, $debug = false) {
+    # map an array of product reviews to an HTML display
+
+    $reviews = "<section class='details-reviews'>";
+    $reviews .= "<h2>Customer Reviews</h2>";
+
+    if ($debug) {
+        # but if debug, echo data
+        $reviews .= var_export($reviewsArray, true);
+    } else {
+        $reviews .= "";
+    }
+
+    if (count($reviewsArray) < 1) {
+        # there are no reviews
+        $reviews .= '<p>There are no reviews yet.</p>';
+    } else {
+        # there are any reviews
+        $reviews .= "<ul>";
+
+        foreach ($reviewsArray as $review) {
+            
+            $screenName = substr($review['clientFirstname'], 0, 1) . $review['clientLastname'];
+            $reviewDate = date('m.d.y @ g:ia', strtotime($review['reviewDate']));
+            $reviews .= "";
+            $reviews .= "<li class='dr-card'>";
+            $reviews .= "<p class='dr-card__text'>$review[reviewText]</p>";
+            $reviews .= "<span class='dr-card__name'><a href='/phpmotors/reviews/?action=user-reviews&clientId=$review[clientId]' title=".json_encode("See all of $screenName's reviews") .">$screenName</a></span>";
+            $reviews .= "<span class='dr-card__date'> on $reviewDate</span>";
+            $reviews .= "</li>";
+        }
+
+        $reviews .= "</ul>";
+    }
+    
+    $reviews .= "</section>";
+
+    return $reviews;
+}
+
+function buildReviewForm($clientId, $invId, $reviewText = '', $action = 'review-submitted') {
+    # build a reusable review form
+    $form = "";
+    $form .= "<form class='review-form' method='post' action='/phpmotors/reviews/'>";
+    $form .= "<label for='reviewText'>Your review:</label> <br>";
+    $form .= "<textarea name='reviewText' id='reviewText' cols='40' rows='6'>$reviewText</textarea> <br> <br>";
+    $form .= "<input type='submit' id='register_submit' name='submit' value='Register'>";
+    $form .= "<input type='reset'  id='register_reset' value='Reset'>";
+    $form .= "<input type='hidden' name='action' value='$action'>";
+    $form .= "<input type='hidden' name='invId' value='$clientId'>";
+    $form .= "<input type='hidden' name='clientId' value='$invId'>";
+    $form .= "</form>";
+    return $form;
+}
+
 function loadVehicleDetailsTemplate($invInfo, $thumbsHTML = null, $debug = false) {
     # from vehicle information array, build product page
     if ($debug) {
@@ -167,13 +222,14 @@ function loadVehicleDetailsTemplate($invInfo, $thumbsHTML = null, $debug = false
     $figure = "<figure class='details-image'>";
     $altText =  "A pretty cool " . $makeModel;
     $figure .= "<img src='$invInfo[imgPath]' alt='$altText'>";
-    //$figcaption = "<figcaption></figcaption>";
+    //$figcaption = "<figcaption>words words words</figcaption>";
     //$figure .= $figcaption;
     $figure .= "</figure>";
 
     # information of vehicle
     $details = "<section class='details-content'>";
     $details .= "<h2>Vehicle Details</h2>";
+    $details .= "<aside class='spacer'>Scroll to bottom for user reviews</aside>";
     # price
     $details .= "<div class='dc__price flex-row'>";
     $details .= "<span>Price: </span>";
