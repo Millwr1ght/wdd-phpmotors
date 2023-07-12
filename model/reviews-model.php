@@ -18,7 +18,7 @@
     function getProductReviews($invId) {
         # get all reviews for given inventory id
         $db = phpmotorsConnect();
-        $sql = 'SELECT r.reviewId, r.reviewText, r.reviewDate, r.clientId, c.clientFirstname, c.clientLastname FROM reviews r JOIN clients c ON r.clientId = c.clientId WHERE invId = :invId;';
+        $sql = 'SELECT r.reviewId, r.reviewText, r.reviewDate, r.invId, r.clientId, c.clientFirstname, c.clientLastname FROM reviews r JOIN clients c ON r.clientId = c.clientId WHERE invId = :invId ORDER BY r.reviewDate DESC;';
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
         $stmt->execute();
@@ -30,7 +30,7 @@
     function getClientReviews($clientId) {
         # get all reviews associated with given client id
         $db = phpmotorsConnect();
-        $sql = 'SELECT r.reviewId, r.reviewText, r.reviewDate, r.clientId, c.clientFirstname, c.clientLastname, r.invId, i.invMake, i.invModel FROM reviews r JOIN clients c ON r.clientId = c.clientId JOIN inventory i ON r.invId = i.invId WHERE clientId = :clientId';
+        $sql = 'SELECT r.reviewId, r.reviewText, r.reviewDate, r.clientId, c.clientFirstname, c.clientLastname, r.invId, i.invMake, i.invModel FROM reviews r JOIN clients c ON r.clientId = c.clientId JOIN inventory i ON r.invId = i.invId WHERE r.clientId = :clientId ORDER BY r.reviewDate DESC';
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':clientId', $clientId, PDO::PARAM_INT);
         $stmt->execute();
@@ -42,7 +42,7 @@
     function getReview($reviewId) {
         # get reviews by review id
         $db = phpmotorsConnect();
-        $sql = 'SELECT r.reviewId, r.reviewText, r.reviewDate, r.clientId, c.clientFirstname, c.clientLastname, r.invId, i.invMake, i.invModel FROM reviews r JOIN clients c ON r.clientId = c.clientId JOIN inventory i ON r.invId = i.invId WHERE reviewId = :reviewId';
+        $sql = 'SELECT r.reviewId, r.reviewText, r.reviewDate, r.clientId, c.clientFirstname, c.clientLastname, r.invId, i.invMake, i.invModel FROM reviews r JOIN clients c ON r.clientId = c.clientId JOIN inventory i ON r.invId = i.invId WHERE r.reviewId = :reviewId;';
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':reviewId', $reviewId, PDO::PARAM_INT);
         $stmt->execute();

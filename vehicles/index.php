@@ -180,7 +180,7 @@
                 exit;
             } else {
                 //got data!
-                $message = "<p> Successfully updated the information for $invMake $invModel!</p>";
+                $message = "<p>Successfully updated the information for $invMake $invModel!</p>";
                 $_SESSION['message'] = $message;
                 //redirect, scrub data
                 header('Location: /phpmotors/vehicles/');
@@ -257,10 +257,10 @@
                 $message = "<p class='notice'>Sorry, that vehicle is not available.</p>";
             } else {
                 $invInfo = $invInfo[0];
+
+                # this is used in the view titles
                 $vehicleName = $invInfo['invMake'] .' '. $invInfo['invModel'];
-                $reviewsArray = getProductReviews($invInfo['invId']);
-                $vehicleReviews = buildReviewsDisplay($reviewsArray);
-                
+
                 # display associated vehicle image and details
                 if (count($invExtraThumbs) >= 1) {
                     # if vehicle has extra thumbs, fix it
@@ -269,7 +269,10 @@
                 } else {
                     $vehicleDetails = loadVehicleDetailsTemplate($invInfo);
                 }
-               
+
+                # get vehicle reviews
+                $reviewsArray = getProductReviews($invInfo['invId']);
+                $vehicleReviews = buildProductReviewsDisplay($reviewsArray, $invInfo['invId']);
             }
 
             include '../view/vehicle-details.php';

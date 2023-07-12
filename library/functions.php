@@ -28,6 +28,14 @@ function checkAdminPrivilege() {
     }
 }
 
+function checkLogin() {
+    # if not logged in, redirect to log in
+    if (!$_SESSION['loggedin']) {
+        header('Location: /phpmotors/accounts/?action=login');
+        exit;
+    }
+}
+
 function buildNav($classifications){
     # build the <nav> element in the header
     $nav_list = "<nav class='nav-top' id='page-nav'>"; 
@@ -154,7 +162,39 @@ function buildImageDisplay($imageArray) {
     return $id;
 }
 
-function buildReviewsDisplay($reviewsArray, $debug = false) {
+function buildClientReviewsDisplay($reviewsArray) {
+    # map an array of a client's reviews to an HTML display
+    if (count($reviewsArray) < 1) {
+        # there are no reviews
+        $reviews = '<p>There are no reviews yet.</p>';
+    } else {
+        # there are any reviews
+        $reviews = "<ul>";
+
+        foreach ($reviewsArray as $review) {
+            $screenName = substr($review['clientFirstname'], 0, 1) . $review['clientLastname'];
+            $reviewDate = date('m.d.y @ g:ia', strtotime($review['reviewDate']));
+            $reviews .= "";
+            $reviews .= "<li class='cr-card'>";
+            $reviews .= "<div class='cr-card__content'>";
+            $reviews .= "<p class='cr-card__text'>$review[reviewText]</p>";
+            $reviews .= "<span class='cr-card__name'>$screenName</span>";
+            $reviews .= "<span class='cr-card__date'> on $reviewDate</span>";
+            $reviews .= "</div>";
+            $reviews .= "<div class='cr-card__options'>";
+            $reviews .= "<a href='/phpmotors/reviews?action=edit-review&reviewId=$review[reviewId]' title='Click to edit'>Edit</a>";
+            $reviews .= "<a href='/phpmotors/reviews?action=delete&reviewId=$review[reviewId]' title='Click to delete'>Delete</a>";
+            $reviews .= "</div>";
+            $reviews .= "</li>";
+        }
+
+        $reviews .= "</ul>";
+
+        return $reviews;
+    }
+}
+
+function buildProductReviewsDisplay($reviewsArray, $invId, $text = '', $debug = false) {
     # map an array of product reviews to an HTML display
 
     $reviews = "<section class='details-reviews'>";
@@ -167,6 +207,10 @@ function buildReviewsDisplay($reviewsArray, $debug = false) {
         $reviews .= "";
     }
 
+    # build review form
+    $reviews .= buildReviewForm($_SESSION['clientData']['clientId'], $invId, $text);
+
+    # show existing reviews
     if (count($reviewsArray) < 1) {
         # there are no reviews
         $reviews .= '<p>There are no reviews yet.</p>';
@@ -178,10 +222,9 @@ function buildReviewsDisplay($reviewsArray, $debug = false) {
             
             $screenName = substr($review['clientFirstname'], 0, 1) . $review['clientLastname'];
             $reviewDate = date('m.d.y @ g:ia', strtotime($review['reviewDate']));
-            $reviews .= "";
             $reviews .= "<li class='dr-card'>";
             $reviews .= "<p class='dr-card__text'>$review[reviewText]</p>";
-            $reviews .= "<span class='dr-card__name'><a href='/phpmotors/reviews/?action=user-reviews&clientId=$review[clientId]' title=".json_encode("See all of $screenName's reviews") .">$screenName</a></span>";
+            $reviews .= "<span class='dr-card__name'>$screenName</span>";
             $reviews .= "<span class='dr-card__date'> on $reviewDate</span>";
             $reviews .= "</li>";
         }
@@ -194,18 +237,28 @@ function buildReviewsDisplay($reviewsArray, $debug = false) {
     return $reviews;
 }
 
-function buildReviewForm($clientId, $invId, $reviewText = '', $action = 'review-submitted') {
-    # build a reusable review form
-    $form = "";
-    $form .= "<form class='review-form' method='post' action='/phpmotors/reviews/'>";
-    $form .= "<label for='reviewText'>Your review:</label> <br>";
-    $form .= "<textarea name='reviewText' id='reviewText' cols='40' rows='6'>$reviewText</textarea> <br> <br>";
-    $form .= "<input type='submit' id='register_submit' name='submit' value='Register'>";
-    $form .= "<input type='reset'  id='register_reset' value='Reset'>";
-    $form .= "<input type='hidden' name='action' value='$action'>";
-    $form .= "<input type='hidden' name='invId' value='$clientId'>";
-    $form .= "<input type='hidden' name='clientId' value='$invId'>";
-    $form .= "</form>";
+function buildReviewForm($clientId, $invId, $reviewText = '') {
+    # build a review form
+    
+    # if not logged in, no form for you
+    if (!$_SESSION['loggedin']) {
+        $form = "<p class='notice'>You must log in first to leave a review. ";
+        $form .= "<a href='/phpmotors/accounts/?action=login'>Log In</a>";
+        $form .= "</p>";
+    } else {
+        # you logged in, you get form
+        $form = "<form class='review-form' method='post' action='/phpmotors/reviews/'>";
+        $form .= "<label for='screenName'>Screen Name: </label>";
+        $form .= "<input readonly type='text' id='screenName' name='screenName' value=".substr($_SESSION['clientData']['clientFirstname'], 0, 1) . $_SESSION['clientData']['clientLastname']."> <br>";
+        $form .= "<label for='reviewText'>Your review:</label> <br>";
+        $form .= "<textarea name='reviewText' id='reviewText' cols='40' rows='6' required>$reviewText</textarea> <br> <br>";
+        $form .= "<input type='submit' id='submit' name='submit' value='Submit'>";
+        $form .= "<input type='reset'  id='reset' value='Reset'>";
+        $form .= "<input type='hidden' name='action' value='review-submitted'>";
+        $form .= "<input type='hidden' name='invId' value='$invId'>";
+        $form .= "<input type='hidden' name='clientId' value='$clientId'>";
+        $form .= "</form>";
+    }
     return $form;
 }
 

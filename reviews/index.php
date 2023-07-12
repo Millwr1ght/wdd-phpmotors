@@ -69,46 +69,111 @@
             break;
 
         case 'edit-review':
+            //filter data
+            $reviewId = trim(filter_input(INPUT_GET, 'reviewId', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+            $reviewToEdit = getReview($reviewId);
+            $reviewToEdit = $reviewToEdit[0];
+            console_log($reviewToEdit);
+
+            if (count($reviewToEdit) < 1) {
+                $message = '<p>Sorry, this review could not be found.';
+                $_SESSION['message'] = $message;
+                header("Location: /phpmotors/accounts/");
+                exit;
+            }
+            
+            if (!isset($_SESSION['loggedin']) || (isset($_SESSION['loggedin']) && !$_SESSION['loggedin'])) {
+                # if not logged in, the user can't submit reviews
+                $loginMessage = "<p class='notice'>You must log in first to edit this review</p>";
+                $reviewForm = $loginMessage;
+            } else if ($_SESSION['clientData']['clientId'] != $reviewToEdit['clientId']) {
+                # logged in but id doesnt match, go home
+                # this isn't your review!
+                $message = "<p>Sorry, looks like this review doesn't belong to you.";
+                $_SESSION['message'] = $message;
+                header("Location: /phpmotors/accounts/");
+                exit;
+                console_log($_SESSION['clientData']['clientId'], $reviewToEdit['clientId']);
+            }
+
             include '../view/review-editor.php';
             break;
         
-        case 'updated':
-        case 'delete-review':
-            # get review to delete from url
+        case 'review-updated':
             //filter data
+            $reviewText = trim(filter_input(INPUT_POST, 'reviewText', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
             $reviewId = trim(filter_input(INPUT_POST, 'reviewId', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
             $reviewId = filter_var($reviewId, FILTER_VALIDATE_INT);
+
+            if (empty($reviewText) || empty($reviewId)) {
+                $message = '<p>Please provide information for all empty form fields. </p>';
+                include '../view/review-editor.php';
+                exit;
+            }
+
+            $updateOutcome = updateReview($reviewId, $reviewText);
+
+            if ($updateOutcome !== 1) {
+                //no got data
+                $message = "<p>Sorry, but it looks like either something went wrong while trying to edit your review or nothing was updated.</p>";
+                include '../view/review-editor.php';
+                exit;
+            } else {
+                //got data!
+                $message = "<p>Successfully updated your review!</p>";
+                //redirect, scrubbing url form data so that reloading the page doesn't add duplicate rows
+                $_SESSION['message'] = $message;
+                header("Location: /phpmotors/accounts/");
+                exit;
+                break;
+            }
             
+
+
+
+        case 'delete':
+            # get review to delete from url
+            //filter data
+            $reviewId = trim(filter_input(INPUT_GET, 'reviewId', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+
             $reviewToDelete = getReview($reviewId);
 
             if ($reviewToDelete < 1) {
                 $message = "<p class='notice'>Sorry, but it looks like something went wrong while trying to find that review.</p>";
             } else {
-                # get vehicle info, specifically make and model
-                $invInfo = getInvItemInfo($reviewToDelete['invId']);
-                
-                if (count($invInfo) < 1) {
-                    $message = "<p class='notice'>It looks like that vehicle does not exist or no longer exists.</p>";
-                } else {
-                    $invInfo = $invInfo[0];
-                }
+                $reviewToDelete = $reviewToDelete[0];
                 include '../view/review-removal.php';
                 exit;
             }
-            
 
-            
             break;
 
-        case 'deleted':
-        case 'user-reviews':
-        
+        case 'review-deleted':
+            //filter POST data
+            $reviewId = trim(filter_input(INPUT_POST, 'reviewId', FILTER_SANITIZE_NUMBER_INT));
+            
+            //got the data? trash it.
+            $deleteOutcome = deleteReview($reviewId);
+            
+            if ($deleteOutcome) {
+                //no more data
+                $message = "<p> Successfully removed your review!</p>";
+            } else {
+                //got data! still! maybe!
+                $message = "<p>Sorry, but your review was not deleted.</p>";
+            }
+
+            $_SESSION['message'] = $message;
+            header("Location: /phpmotors/accounts/");
+            exit;
+            break;
+
         default:
 
-            # check if user is admin, and if not set header location to homepage and exit
-            checkAdminPrivilege();
-
-            include '../view/review-management.php';
+            # check if user is logged in, and if not set header location to homepage and exit
+            checkLogin();
+            # go to accounts default view
+            header("Location: /phpmotors/accounts/");
             break;
     }
 
