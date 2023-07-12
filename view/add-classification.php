@@ -1,5 +1,5 @@
 <?php $title = 'Add Classification';
-checkAdminPriviledge();
+checkAdminPrivilege();
 
 ?><!DOCTYPE html>
 <html lang="en">

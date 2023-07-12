@@ -21,11 +21,7 @@ checkAdminPrivilege();
     <main>
         <h1><?=$title?> to Inventory</h1>
 
-        <?php
-        if (isset($message)){
-            echo $message;
-        }
-        ?>
+        <?= (isset($message)) ? $message: '' ?>
 
         <form class="register-form" method="post" action="/phpmotors/vehicles/">
 

@@ -117,6 +117,7 @@ function updatePassword($clientId, $clientPassword) {
 }
 
 function deleteClient($clientId) {
+    # delete client
     $db = phpmotorsConnect();
     $sql = 'DELETE FROM clients WHERE clientId = :clientId';
     $stmt = $db->prepare($sql);
