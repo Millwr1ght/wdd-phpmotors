@@ -20,10 +20,11 @@
 
         <?= (isset($message)) ? $message: '' ?>
 
-        <div class="main-content">
+        <div class="main-content details">
             
-            <?= (isset($vehicleDetails)) ? $vehicleDetails : '' ?>
-        
+            <?= (isset($vehicleDetails)) ? $vehicleDetails : '';?>
+            <?= (isset($vehicleReviews)) ? $vehicleReviews : '';?>
+
         </div>
     
     </main>

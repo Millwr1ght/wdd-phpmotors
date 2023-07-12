@@ -11,6 +11,7 @@
     require_once '../model/main-model.php';
     //get the accounts model
     require_once '../model/accounts-model.php';
+    require_once '../model/reviews-model.php';
 
 
     /* variable creation */
@@ -292,6 +293,11 @@
             break;
         
         default:
+            # get reviews from this client id if any
+            $myReviews = getClientReviews($_SESSION['clientData']['clientId']);
+
+            $manageReviews = buildClientReviewsDisplay($myReviews);
+            
             include '../view/admin.php';
             break;
     }

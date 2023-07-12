@@ -2,11 +2,7 @@
 $search = array('client', 'Id', 'name');
 $replace = array('', 'User Id', ' name');
 
-if (!$_SESSION['loggedin']) {
-    # if not logged in, redirect to log in
-    header('Location: /phpmotors/accounts/?action=login');
-    exit;
-}
+checkLogin();
 
 if (isset($_SESSION['message'])) {
     $message = $_SESSION['message'];
@@ -31,11 +27,7 @@ if (isset($_SESSION['message'])) {
     <main>
         <h1>Welcome <?=$_SESSION['clientData']['clientFirstname']?></h1>
 
-        <?php
-        if (isset($message)){
-            echo $message;
-        }
-        ?>
+        <?= (isset($message)) ? $message: '' ?>
 
         <section>
             <h2>Account Information:</h2>
@@ -47,6 +39,11 @@ if (isset($_SESSION['message'])) {
             <p><a href='/phpmotors/accounts/?action=mod' title='Click to modify'>Modify Account Details</a></p>
             <p><a href='/phpmotors/accounts/?action=del' title='Click to delete'>Delete Account</a></p>
 
+        </section>
+
+        <section class="client-reviews divider-top">
+            <h2>Your Product Reviews</h2>
+            <?= (isset($manageReviews)) ? $manageReviews : '<p class="notice">It looks like you have not reviewed anything in our inventory.</p>';?>
         </section>
         
         <?= ($_SESSION['clientData']['clientLevel'] > 1) ? $admin_section : '' ; # if user is admin, add admin section?>

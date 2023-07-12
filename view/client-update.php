@@ -1,10 +1,6 @@
 <?php $title = 'Update Account Information';
 
-if (!$_SESSION['loggedin']) {
-    # if not logged in, redirect to log in
-    header('Location: /phpmotors/accounts/?action=login');
-    exit;
-}
+checkLogin();
 
 if (isset($_SESSION['message'])) {
     $message = $_SESSION['message'];

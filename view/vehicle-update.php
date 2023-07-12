@@ -1,5 +1,6 @@
 <?php $title = 'Modify';
-checkAdminPriviledge();
+checkAdminPrivilege();
+
 # finish title
 if (isset($invInfo['invMake']) && isset($invInfo['invModel'])) {
     $title .= " $invInfo[invMake] $invInfo[invModel]";
@@ -28,11 +29,7 @@ if (isset($invInfo['invMake']) && isset($invInfo['invModel'])) {
     <main>
         <h1><?= $title ?></h1>
 
-        <?php
-        if (isset($message)) {
-            echo $message;
-        }
-        ?>
+        <?= (isset($message)) ? $message: '' ?>
 
         <form class="register-form" method="post" action="/phpmotors/vehicles/">
 

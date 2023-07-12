@@ -12,9 +12,8 @@
     require_once '../model/main-model.php';
     require_once '../model/vehicle-model.php';
     require_once '../model/uploads-model.php';
+    require_once '../model/reviews-model.php';
     
-
-
 
     /* variable creation */
     //get session
@@ -181,7 +180,7 @@
                 exit;
             } else {
                 //got data!
-                $message = "<p> Successfully updated the information for $invMake $invModel!</p>";
+                $message = "<p>Successfully updated the information for $invMake $invModel!</p>";
                 $_SESSION['message'] = $message;
                 //redirect, scrub data
                 header('Location: /phpmotors/vehicles/');
@@ -193,10 +192,11 @@
         case 'del':
             $invId = filter_input(INPUT_GET, 'invId', FILTER_VALIDATE_INT);
             $invInfo = getInvItemInfo($invId);
-            $invInfo = $invInfo[0];
 
             if (count($invInfo) < 1) {
                 $message = '<p>Sorry, no vehicle information could be found.';
+            } else {
+                $invInfo = $invInfo[0];
             }
             
             include '../view/vehicle-delete.php';
@@ -222,7 +222,8 @@
                 exit;
             } else {
                 //got data! still! maybe!
-                $message = "<p>Sorry, but $invMake $invModel was not deleted.</p>";
+                # edge case: make and model are missing because of an invalid invId
+                $message = "<p>Sorry, but ". (($invMake !== '') ? $invMake . ' ' . $invModel : 'that vehicle') ." was not deleted.</p>";
                 $_SESSION['message'] = $message;
                 //redirect, scrub data
                 header('Location: /phpmotors/vehicles/');
@@ -256,8 +257,10 @@
                 $message = "<p class='notice'>Sorry, that vehicle is not available.</p>";
             } else {
                 $invInfo = $invInfo[0];
+
+                # this is used in the view titles
                 $vehicleName = $invInfo['invMake'] .' '. $invInfo['invModel'];
-                
+
                 # display associated vehicle image and details
                 if (count($invExtraThumbs) >= 1) {
                     # if vehicle has extra thumbs, fix it
@@ -266,7 +269,10 @@
                 } else {
                     $vehicleDetails = loadVehicleDetailsTemplate($invInfo);
                 }
-               
+
+                # get vehicle reviews
+                $reviewsArray = getProductReviews($invInfo['invId']);
+                $vehicleReviews = buildProductReviewsDisplay($reviewsArray, $invInfo['invId']);
             }
 
             include '../view/vehicle-details.php';
