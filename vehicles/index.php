@@ -18,7 +18,10 @@
     /* variable creation */
     //get session
     session_start();
-    
+    if (isset($_SESSION['message'])) {
+        $message = $_SESSION['message'];
+    }
+
     //get classifications
     $carclassifications = getClassifications();
 

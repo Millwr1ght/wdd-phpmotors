@@ -24,4 +24,4 @@ $title = $classificationName . ((in_array($classificationName, $notAdjectives)) 
     </main>
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>
 </body>
-</html>
+</html><?php unset($_SESSION['message']); ?>

@@ -1,5 +1,5 @@
 <?php
-    // welcome to the reviews controller
+    // welcome to the reviews controller!
 
     /* imports */
     //utilities
@@ -48,18 +48,25 @@
             $invId = filter_var($invId, FILTER_VALIDATE_INT);
             $clientId = filter_var($clientId, FILTER_VALIDATE_INT);
 
-            if (empty($reviewText) || empty($invId) || empty($clientId)) {
-                $message = '<p>Please provide information for all empty form fields. </p>';
-            }
-
-            //got the data?
-            $submitReview = insertReview($clientId, $invId, $reviewText);
-            
-            //no got data
-            if ($submitReview !== 1) {
-                $message = "<p>Sorry, but it looks like something went wrong while trying to add your review.</p>";
+            if (empty($reviewText) || empty($clientId)) {
+                $message = '<p class="notice">Please provide information for all empty form fields. </p>';
+            } else if (empty($invId)) {
+                # if we don't have an invId, we can't send you back! oh no!
+                $_SESSION['message'] = '<p class="notice">Something went horribly wrong.</p>';
+                header("Location: /phpmotors/");
+                exit;
+                break;
             } else {
-                $message = "<p> Successfully added your review!</p>";
+                //got the data?
+                $submitReview = insertReview($clientId, $invId, $reviewText);
+                
+                //no got data
+                if ($submitReview !== 1) {
+                    $message = "<p class='notice'>Sorry, but it looks like something went wrong while trying to add your review.</p>";
+                } else {
+                    // data got got! english is so fun.
+                    $message = "<p class='notice'>Successfully added your review!</p>";
+                }
             }
 
             //redirect, scrubbing url form data so that reloading the page doesn't add duplicate rows
