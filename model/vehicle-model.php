@@ -92,10 +92,14 @@ function getInventoryByClassificationName($classificationName, $tn = true) {
     return $inventory;
 }
 
-function getInvItemInfo($invId) {
+function getInvItemInfo($invId, $getImages = false) {
     # get data from inventory table based on inventory id
     $db = phpmotorsConnect();
-    $sql = 'SELECT i.invId, i.invMake, i.invModel, i.invDescription, im.imgPath, i.invPrice, i.invStock, i.invColor, i.classificationId FROM inventory i JOIN images im ON i.invId = im.invId WHERE i.invId = :invId AND im.imgPath NOT LIKE "%-tn.%"';
+    # if getImages, get images too, else no
+    $sql = ($getImages) 
+        ? 'SELECT i.invId, i.invMake, i.invModel, i.invDescription, im.imgPath, i.invPrice, i.invStock, i.invColor, i.classificationId FROM inventory i JOIN images im ON i.invId = im.invId WHERE i.invId = :invId AND im.imgPath NOT LIKE "%-tn.%"'
+        : 'SELECT * FROM inventory WHERE i.invId = :invId' ;
+    
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
     $stmt->execute();

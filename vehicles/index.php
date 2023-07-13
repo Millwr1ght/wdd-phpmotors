@@ -135,7 +135,7 @@
         case 'mod':
             # modify vehicle data
             $invId = filter_input(INPUT_GET, 'invId', FILTER_VALIDATE_INT);
-            $invInfo = getInvItemInfo($invId);
+            $invInfo = getInvItemInfo($invId); # don't need images
             $invInfo = $invInfo[0];
 
             if (count($invInfo) < 1) {
@@ -191,7 +191,7 @@
 
         case 'del':
             $invId = filter_input(INPUT_GET, 'invId', FILTER_VALIDATE_INT);
-            $invInfo = getInvItemInfo($invId);
+            $invInfo = getInvItemInfo($invId); #don't need images
 
             if (count($invInfo) < 1) {
                 $message = '<p>Sorry, no vehicle information could be found.';
@@ -249,7 +249,7 @@
         case 'details':
             # get vehicle id
             $invId = filter_input(INPUT_GET, 'invId', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $invInfo = getInvItemInfo($invId);
+            $invInfo = getInvItemInfo($invId, true); # do need images
             $invExtraThumbs = getVehicleThumbnails($invId);
 
             # validate response
