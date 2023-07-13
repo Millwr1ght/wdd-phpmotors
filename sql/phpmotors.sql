@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 12, 2023 at 02:25 AM
+-- Generation Time: Jul 13, 2023 at 02:26 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -66,7 +66,8 @@ CREATE TABLE `clients` (
 
 INSERT INTO `clients` (`clientId`, `clientFirstname`, `clientLastname`, `clientEmail`, `clientPassword`, `clientLevel`, `comment`) VALUES
 (2, 'Admin', 'User', 'admin@cse340.net', '$2y$10$FWO8sW6Xd402TgDr0YygxOPftKirnByQLyCva3hHEXe5bJgBpCMOy', '3', NULL),
-(3, 'Jack', 'Bequick', 'notanadmin@cse340.net', '$2y$10$Aaih.rdmFqpOTqDbkPWh5OUWjETkbUgx2eUytCzmz9npRTvLJxeZG', '1', NULL);
+(3, 'Jack', 'Bequick', 'notanadmin@cse340.net', '$2y$10$Aaih.rdmFqpOTqDbkPWh5OUWjETkbUgx2eUytCzmz9npRTvLJxeZG', '1', NULL),
+(8, 'Moses', 'Johnston', '123@gmail.com', '$2y$10$LSLUpaf9t.dpR5ed9LxQe.XHX9jxgeUtci0PbC7qPmod925VaRe..', '1', NULL);
 
 -- --------------------------------------------------------
 
@@ -116,20 +117,20 @@ INSERT INTO `images` (`imgId`, `invId`, `imgName`, `imgPath`, `imgDate`, `imgPri
 (34, 13, 'aerocar-tn.jpg', '/phpmotors/images/vehicles/aerocar-tn.jpg', '2023-07-02 04:02:06', 1),
 (35, 14, 'fbi.jpg', '/phpmotors/images/vehicles/fbi.jpg', '2023-07-02 04:02:16', 1),
 (36, 14, 'fbi-tn.jpg', '/phpmotors/images/vehicles/fbi-tn.jpg', '2023-07-02 04:02:16', 1),
-(37, 15, 'no-image.png', '/phpmotors/images/vehicles/no-image.png', '2023-07-02 04:02:46', 1),
-(38, 15, 'no-image-tn.png', '/phpmotors/images/vehicles/no-image-tn.png', '2023-07-02 04:02:46', 1),
 (39, 18, 'bees bees bees.png', '/phpmotors/images/vehicles/bees bees bees.png', '2023-07-02 04:03:16', 1),
 (40, 18, 'bees bees bees-tn.png', '/phpmotors/images/vehicles/bees bees bees-tn.png', '2023-07-02 04:03:16', 1),
 (41, 21, 'delorean.jpg', '/phpmotors/images/vehicles/delorean.jpg', '2023-07-02 04:09:34', 1),
 (42, 21, 'delorean-tn.jpg', '/phpmotors/images/vehicles/delorean-tn.jpg', '2023-07-02 04:09:34', 1),
-(43, 3, 'Lambo_Ave_Orange.jpg', '/phpmotors/images/vehicles/Lambo_Ave_Orange.jpg', '2023-07-02 04:36:39', 0),
-(44, 3, 'Lambo_Ave_Orange-tn.jpg', '/phpmotors/images/vehicles/Lambo_Ave_Orange-tn.jpg', '2023-07-02 04:36:39', 0),
 (45, 3, 'Aventador.jpg', '/phpmotors/images/vehicles/Aventador.jpg', '2023-07-02 04:36:46', 0),
 (46, 3, 'Aventador-tn.jpg', '/phpmotors/images/vehicles/Aventador-tn.jpg', '2023-07-02 04:36:46', 0),
 (47, 7, 'mm2.jpg', '/phpmotors/images/vehicles/mm2.jpg', '2023-07-02 04:36:57', 0),
 (48, 7, 'mm2-tn.jpg', '/phpmotors/images/vehicles/mm2-tn.jpg', '2023-07-02 04:36:57', 0),
 (49, 18, 'Screenshot 2023-06-17 002441.png', '/phpmotors/images/vehicles/Screenshot 2023-06-17 002441.png', '2023-07-02 05:19:40', 0),
-(50, 18, 'Screenshot 2023-06-17 002441-tn.png', '/phpmotors/images/vehicles/Screenshot 2023-06-17 002441-tn.png', '2023-07-02 05:19:40', 0);
+(50, 18, 'Screenshot 2023-06-17 002441-tn.png', '/phpmotors/images/vehicles/Screenshot 2023-06-17 002441-tn.png', '2023-07-02 05:19:40', 0),
+(51, 3, 'Lambo_Ave_Orange.jpg', '/phpmotors/images/vehicles/Lambo_Ave_Orange.jpg', '2023-07-12 18:37:14', 0),
+(52, 3, 'Lambo_Ave_Orange-tn.jpg', '/phpmotors/images/vehicles/Lambo_Ave_Orange-tn.jpg', '2023-07-12 18:37:14', 0),
+(55, 15, 'Dog car.jpg', '/phpmotors/images/vehicles/Dog car.jpg', '2023-07-12 18:53:23', 1),
+(56, 15, 'Dog car-tn.jpg', '/phpmotors/images/vehicles/Dog car-tn.jpg', '2023-07-12 18:53:23', 1);
 
 -- --------------------------------------------------------
 
@@ -193,8 +194,14 @@ CREATE TABLE `reviews` (
 
 INSERT INTO `reviews` (`reviewId`, `reviewText`, `reviewDate`, `invId`, `clientId`) VALUES
 (1, 'This is a sweet car! It go! So! Fast!', '2023-07-09 04:48:56', 3, 3),
-(3, 'This is not a boat! This is bees!', '2023-07-11 02:13:58', 18, 3),
-(5, 'The Bee in Boat stands for bees!', '2023-07-11 02:20:14', 18, 2);
+(3, 'This is not a boat! This is just a swarm of bees!', '2023-07-11 02:13:58', 18, 3),
+(5, 'The Bee in Boat stands for bees!', '2023-07-11 02:20:14', 18, 2),
+(7, 'Did not include a talking dog. no stars.', '2023-07-12 17:55:14', 7, 2),
+(9, 'I&#039;m batman', '2023-07-12 18:40:56', 6, 8),
+(10, 'Please remove this picture -FBI', '2023-07-12 18:41:25', 14, 8),
+(11, 'I am not a fire fighter', '2023-07-12 18:41:42', 8, 8),
+(12, 'This is a scam. They just sent me a picture of the dolorean. Still worked for time travel tho', '2023-07-12 18:42:18', 21, 8),
+(14, 'It looks just like the picture', '2023-07-12 18:46:16', 15, 8);
 
 --
 -- Indexes for dumped tables
@@ -248,13 +255,13 @@ ALTER TABLE `carclassification`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `clientId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `clientId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `imgId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `imgId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `inventory`
@@ -266,7 +273,7 @@ ALTER TABLE `inventory`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `reviewId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `reviewId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables
