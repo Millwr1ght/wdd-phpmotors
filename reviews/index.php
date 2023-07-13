@@ -71,29 +71,43 @@
         case 'edit-review':
             //filter data
             $reviewId = trim(filter_input(INPUT_GET, 'reviewId', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+            
+            # get the review
             $reviewToEdit = getReview($reviewId);
-            $reviewToEdit = $reviewToEdit[0];
-            console_log($reviewToEdit);
 
-            if (count($reviewToEdit) < 1) {
-                $message = '<p>Sorry, this review could not be found.';
+            # did we get anything? is it null or an empty array?
+            if (is_null($reviewToEdit) || empty($reviewToEdit)) {
+                # how did you get here? why are you manually changing the url? stop that
+                $message = "<p class='notice'>Sorry, this review does not exist.";
                 $_SESSION['message'] = $message;
                 header("Location: /phpmotors/accounts/");
                 exit;
             }
             
-            if (!isset($_SESSION['loggedin']) || (isset($_SESSION['loggedin']) && !$_SESSION['loggedin'])) {
-                # if not logged in, the user can't submit reviews
-                $loginMessage = "<p class='notice'>You must log in first to edit this review</p>";
-                $reviewForm = $loginMessage;
-            } else if ($_SESSION['clientData']['clientId'] != $reviewToEdit['clientId']) {
-                # logged in but id doesnt match, go home
-                # this isn't your review!
-                $message = "<p>Sorry, looks like this review doesn't belong to you.";
+            if (count($reviewToEdit[0]) < 1) {
+                # we got a result, but the result had no data. huh.
+                $message = "<p class='notice'>Sorry, this review could not be found.";
                 $_SESSION['message'] = $message;
                 header("Location: /phpmotors/accounts/");
                 exit;
-                console_log($_SESSION['clientData']['clientId'], $reviewToEdit['clientId']);
+            }
+            $reviewToEdit = $reviewToEdit[0];
+
+            # we have the review!
+
+            if (!isset($_SESSION['loggedin']) || (isset($_SESSION['loggedin']) && !$_SESSION['loggedin'])) {
+                # if not logged in, the user can't edit reviews
+                $message = "<p class='notice'>You must log in first to edit this review</p>";
+                $_SESSION['message'] = $message;
+                header("Location: /phpmotors/accounts/");
+                exit;
+            } else if ($_SESSION['clientData']['clientId'] != $reviewToEdit['clientId']) {
+                # logged in but id doesnt match, go home
+                # this isn't your review!
+                $message = "<p>You cannot edit reviews that do not belong to you.";
+                $_SESSION['message'] = $message;
+                header("Location: /phpmotors/accounts/");
+                exit;
             }
 
             include '../view/review-editor.php';
@@ -137,15 +151,41 @@
             $reviewId = trim(filter_input(INPUT_GET, 'reviewId', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
 
             $reviewToDelete = getReview($reviewId);
+            # did we get anything? is it null or an empty array?
+            if (is_null($reviewToDelete) || empty($reviewToDelete)) {
+                # how did you get here? why are you manually changing the url? stop that
+                $message = "<p class='notice'>Sorry, this review does not exist.";
+                $_SESSION['message'] = $message;
+                header("Location: /phpmotors/accounts/");
+                exit;
+            }
+            
+            if (count($reviewToDelete[0]) < 1) {
+                # we got a result, but the result had no data. huh.
+                $message = "<p class='notice'>Sorry, this review could not be found.";
+                $_SESSION['message'] = $message;
+                header("Location: /phpmotors/accounts/");
+                exit;
+            }
+            $reviewToDelete = $reviewToDelete[0];
 
-            if ($reviewToDelete < 1) {
-                $message = "<p class='notice'>Sorry, but it looks like something went wrong while trying to find that review.</p>";
-            } else {
-                $reviewToDelete = $reviewToDelete[0];
-                include '../view/review-removal.php';
+            if (!isset($_SESSION['loggedin']) || (isset($_SESSION['loggedin']) && !$_SESSION['loggedin'])) {
+                # if not logged in, the user can't delete reviews
+                $message = "<p class='notice'>You must log in first to delete this review</p>";
+                $_SESSION['message'] = $message;
+                header("Location: /phpmotors/accounts/");
+                exit;
+            } else if ($_SESSION['clientData']['clientId'] != $reviewToDelete['clientId']) {
+                # logged in but id doesnt match, go home
+                # this isn't your review!
+                $message = "<p>You cannot delete reviews that do not belong to you.";
+                $_SESSION['message'] = $message;
+                header("Location: /phpmotors/accounts/");
                 exit;
             }
 
+            include '../view/review-removal.php';
+            exit;
             break;
 
         case 'review-deleted':

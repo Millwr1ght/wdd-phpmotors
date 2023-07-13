@@ -4,6 +4,8 @@ if (isset($_SESSION['message'])) {
     $message = $_SESSION['message'];
 }
 
+$screenName = substr($_SESSION['clientData']['clientFirstname'], 0, 1) . $_SESSION['clientData']['clientLastname'];
+
 ?><!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +30,7 @@ if (isset($_SESSION['message'])) {
         <form class="review-form" method="post" action="/phpmotors/reviews/">
 
             <label for='screenName'>Screen Name: </label>
-            <input readonly type='text' id='screenName' name='screenName' value="<?= substr($_SESSION['clientData']['clientFirstname'], 0, 1) . $_SESSION['clientData']['clientLastname'] ?>"> <br>
+            <input readonly type='text' id='screenName' name='screenName' value="<?= $screenName ?>"> <br>
             
             <label for='reviewText'>Your review:</label> <br>
             <textarea name='reviewText' id='reviewText' cols='40' rows='6' required><?= (isset($reviewToEdit['reviewText'])) ? $reviewToEdit['reviewText'] : '';?></textarea> <br> <br>
