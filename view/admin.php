@@ -1,6 +1,4 @@
 <?php $title = ($_SESSION['clientData']['clientLevel'] > 1) ? 'Administration' : 'My Account';
-$search = array('client', 'Id', 'name');
-$replace = array('', 'User Id', ' name');
 
 checkLogin();
 
@@ -31,10 +29,8 @@ if (isset($_SESSION['message'])) {
 
         <section>
             <h2>Account Information:</h2>
-            <!-- for each key in the session's client data, output the key:value pair in an unordered list -->
-            <?php echo "<ul>"; foreach ($_SESSION['clientData'] as $dataKey => $dataValue):?>
-            <li><?=str_replace($search, $replace, $dataKey)?>: <?=$dataValue?></li>
-            <?php endforeach; echo "</ul>"?>
+            
+            <?= buildClientInfo($_SESSION['clientData']) ?>
 
             <p><a href='/phpmotors/accounts/?action=mod' title='Click to modify'>Modify Account Details</a></p>
             <p><a href='/phpmotors/accounts/?action=del' title='Click to delete'>Delete Account</a></p>

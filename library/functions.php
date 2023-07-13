@@ -88,6 +88,29 @@ function buildClassificationsList($classifications) {
     return $list;
 }
 
+function buildClientInfo($clientData) {
+    # for each key in the session's client data, output the key:value pair in an unordered list
+    $search = array('client', 'Id', 'Firstname');
+    $replace = array('', 'User Id', 'Name');
+    $adminInfo = array('clientId', 'clientLevel');
+    $name = $clientData['clientFirstname'] . ' ' . $clientData['clientLastname'];
+    $list = "<ul>";
+    foreach ($clientData as $dataKey => $dataValue) {
+
+        if (($clientData['clientLevel'] < 2 && in_array($dataKey, $adminInfo)) || $dataKey == 'clientLastname') {
+            # normal users don't need this information, or it is redundant
+            continue;
+        } else if ($dataKey == 'clientFirstname') {
+            $list .= "<li>".str_replace($search, $replace, $dataKey).": $name</li>";
+            
+        } else {
+            $list .= "<li>".str_replace($search, $replace, $dataKey).": $dataValue</li>";
+        }
+    }
+    $list .= "</ul>";
+    return $list;
+}
+
 function buildVehiclesList($vehicles) {
     # build a select/option dropdown with the vehicles as options
     $list = '<select name="invId" id="vehicleList">';

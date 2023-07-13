@@ -184,18 +184,19 @@
             }
 
             //check for duplicate records. if duplicate, go to start
-            $emailInUse = $_SESSION['clientData']['clientEmail'] == $clientEmail;
+            // $emailInUse = $_SESSION['clientData']['clientEmail'] == $clientEmail;
 
-            if ($emailInUse) {
-                $_SESSION['message'] = '<p>This email address is already used by another user: You! Try again.</p>';
-                $_SESSION['message_location'] = 'update-account';
-                include '../view/client-update.php';  
-                exit;
-            }
-
+            // if ($emailInUse) {
+            //     $_SESSION['message'] = '<p>This email address is already used by another user: You! Try again.</p>';
+            //     $_SESSION['message_location'] = 'update-account';
+            //     include '../view/client-update.php';  
+            //     exit;
+            // }
+            
+            //check for duplicate records. if duplicate, and not user's own email, go to start
             $existingEmail = checkExistingEmail($clientEmail);
 
-            if ($existingEmail) {
+            if ($existingEmail && $_SESSION['clientData']['clientEmail'] != $clientEmail) {
                 $_SESSION['message'] = '<p>This email address is already used by another user. Try again.</p>';
                $_SESSION['message_location'] = 'update-account';
                include '../view/client-update.php';  
