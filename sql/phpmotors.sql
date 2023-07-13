@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 13, 2023 at 02:26 AM
+-- Generation Time: Jul 13, 2023 at 11:54 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -42,7 +42,8 @@ INSERT INTO `carclassification` (`classificationId`, `classificationName`) VALUE
 (3, 'Sports'),
 (4, 'Trucks'),
 (5, 'Used'),
-(16, 'Boats');
+(16, 'Boats'),
+(17, 'Random');
 
 -- --------------------------------------------------------
 
@@ -156,7 +157,7 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`invId`, `invMake`, `invModel`, `invDescription`, `invImage`, `invThumbnail`, `invPrice`, `invStock`, `invColor`, `classificationId`) VALUES
-(1, 'Jeep ', 'Wrangler', 'The Jeep Wrangler is small and compact with enough power to get you where you want to go. It is great for everyday driving as well as off-roading whether that be on the rocks or in the mud!', '/images/vehicles/wrangler.jpg', '/images/vehicles/wrangler-tn.jpg', 28045.00, 4, 'Orange', 1),
+(1, 'Jeep', 'Wrangler', 'The Jeep Wrangler is small and compact with enough power to get you where you want to go. It is great for everyday driving as well as off-roading whether that be on the rocks or in the mud!', '/phpmotors/images/no-image.png', '/phpmotors/images/no-image.png', 28045.00, 4, 'Orange', 1),
 (2, 'Ford', 'Model T', 'The Ford Model T can be a bit tricky to drive. It was the first car to be put into production. You can get it in any color you want as long as it&#039;s black.', '/images/vehicles/ford-modelt.jpg', '/images/vehicles/ford-modelt-tn.jpg', 30000.00, 2, 'Black', 2),
 (3, 'Lamborghini', 'Adventador', 'This V-12 engine packs a punch in this sporty car. Make sure you wear your seatbelt and obey all traffic laws.', '/images/vehicles/lambo-Adve.jpg', '/images/vehicles/lambo-Adve-tn.jpg', 417650.00, 1, 'Blue', 3),
 (4, 'Monster', 'Truck', 'Most trucks are for working, this one is for fun. This beast comes with 60 inch tires giving you the traction needed to jump and roll in the mud.', '/images/vehicles/monster.jpg', '/images/vehicles/monster-tn.jpg', 150000.00, 3, 'purple', 4),
@@ -196,12 +197,15 @@ INSERT INTO `reviews` (`reviewId`, `reviewText`, `reviewDate`, `invId`, `clientI
 (1, 'This is a sweet car! It go! So! Fast!', '2023-07-09 04:48:56', 3, 3),
 (3, 'This is not a boat! This is just a swarm of bees!', '2023-07-11 02:13:58', 18, 3),
 (5, 'The Bee in Boat stands for bees!', '2023-07-11 02:20:14', 18, 2),
-(7, 'Did not include a talking dog. no stars.', '2023-07-12 17:55:14', 7, 2),
+(7, 'Did not include a talking dog. No stars.', '2023-07-12 17:55:14', 7, 2),
 (9, 'I&#039;m batman', '2023-07-12 18:40:56', 6, 8),
 (10, 'Please remove this picture -FBI', '2023-07-12 18:41:25', 14, 8),
 (11, 'I am not a fire fighter', '2023-07-12 18:41:42', 8, 8),
 (12, 'This is a scam. They just sent me a picture of the dolorean. Still worked for time travel tho', '2023-07-12 18:42:18', 21, 8),
-(14, 'It looks just like the picture', '2023-07-12 18:46:16', 15, 8);
+(14, 'It looks just like the picture', '2023-07-12 18:46:16', 15, 8),
+(16, 'this comment section is rather boring, like this car', '2023-07-13 19:58:05', 9, 2),
+(19, 'This is a cute car! I love it so much!~~', '2023-07-13 21:38:15', 15, 2),
+(20, 'thank you for a new project to work on, please read this in the most sarcastic tone of voice.', '2023-07-13 21:42:50', 5, 2);
 
 --
 -- Indexes for dumped tables
@@ -249,7 +253,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `carclassification`
 --
 ALTER TABLE `carclassification`
-  MODIFY `classificationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `classificationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `clients`
@@ -267,13 +271,13 @@ ALTER TABLE `images`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `invId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `invId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `reviewId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `reviewId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
