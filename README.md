@@ -5,4 +5,8 @@ only uploaded to github because I was travelling by train to visit family during
 
 ## how to play
 1. move or copy /phpmotors to ~/xampp/htdocs
-2. open xampp, start server, go to localhost/phpmotors
+2. open xampp, start php server
+3. open phpmyadmin or your xampp database/sql admin
+4. import the phpmotors/sql/phpmotors.sql database
+5. set up the database user account using credentials found in /library/connections.php
+6. go to localhost/phpmotors to see site
