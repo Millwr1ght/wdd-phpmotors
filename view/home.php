@@ -25,7 +25,7 @@
                 <p>Fuzzy dice!</p>
             </aside>
             <img id="hero-delorean" src="/phpmotors/images/vehicles/delorean.jpg" alt="The DMC Delorean">
-            <img id="hero-call" src="/phpmotors/images/site/own_today.png" alt="click here to buy now">
+            <a href="/phpmotors/vehicles/?action=details&invId=21" id="hero-call"><img src="/phpmotors/images/site/own_today.png" alt="click here to buy now"></a>
         </div>
         
         <div class="main-content">
