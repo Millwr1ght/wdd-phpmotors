@@ -33,12 +33,23 @@ $screenName = substr($_SESSION['clientData']['clientFirstname'], 0, 1) . $_SESSI
             <input readonly type='text' id='screenName' name='screenName' value="<?= $screenName ?>"> <br>
             
             <label for='reviewText'>Your review:</label> <br>
-            <textarea name='reviewText' id='reviewText' cols='40' rows='6' required><?= (isset($reviewToEdit['reviewText'])) ? $reviewToEdit['reviewText'] : '';?></textarea> <br> <br>
+            <textarea name='reviewText' id='reviewText' cols='40' rows='6' required><?=
+                (isset($reviewToEdit['reviewText']))
+                    ? $reviewToEdit['reviewText']
+                    : ((isset($reviewText))
+                        ? $reviewText
+                        : '');?>
+            </textarea> <br> <br>
 
             <input type="submit" id="submit" name="submit" value="Submit Changes">
             
             <input type="hidden" name="action" value="review-updated">
-            <input type="hidden" name="reviewId" value="<?= (isset($reviewToEdit['reviewId'])) ? $reviewToEdit['reviewId'] : '';?>">
+            <input type="hidden" name="reviewId" value="<?=
+                (isset($reviewToEdit['reviewId']))
+                    ? $reviewToEdit['reviewId']
+                    : ((isset($reviewId))
+                        ? $reviewId
+                        : '');?>">
 
         </form>
 
