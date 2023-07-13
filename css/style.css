@@ -49,7 +49,8 @@ a:active {
     color: inherit;
     text-decoration: none;
     width: 100%;
-    padding: 12px;
+    /* padding: 12px; */
+    padding: 0;
 }
 
 button {
@@ -62,15 +63,19 @@ button {
     cursor: pointer;
 }
 
+.mobile {
+    display: block;
+}
+
 header {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-header .logo a {
+/* header .logo a {
     padding: 0;
-}
+} */
 
 header .login {
     display: flex;
@@ -84,7 +89,7 @@ header .login {
 }
 
 header .login a {
-    padding: 0;
+    /* padding: 0; */
     width: auto;
 }
 
@@ -268,9 +273,9 @@ section.upgrades .card {
     text-align: center;
 }
 
-section.upgrades .card a {
+/* section.upgrades .card a {
     padding: 0;
-}
+} */
 
 section.upgrades .card-img {
     background: var(--dark-blue);
@@ -306,9 +311,9 @@ li.vehicle-card{
     flex-direction: column;
 }
 
-li.vehicle-card a {
+/* li.vehicle-card a {
     padding: 0;
-}
+} */
 
 li img.vc__img {
     max-width: 100%;
@@ -322,7 +327,6 @@ li hr {
 
 /* li h2.vc__title {} */
 /* li span.vc__price {} */
-
 
 /* vehicle details page */
 figure.details-image {
@@ -375,6 +379,10 @@ section.client-reviews .cr-card {
 
 section.client-reviews .cr-card__options {
     margin-top: 0.5em;
+}
+
+section.client-reviews .cr-card__options a {
+    padding-left: 0.5em;
 }
 
 /* medium (and large) screen styling ----------------*/
@@ -534,7 +542,15 @@ section.client-reviews .cr-card__options {
         align-items: center;
         justify-content: space-between;
     }
+
     
+    section.client-reviews .cr-card__options a {
+        padding-left: 1em;
+    }
+        
+    .mobile {
+        display: none;
+    }
 
 }
 
@@ -586,7 +602,7 @@ section.client-reviews .cr-card__options {
     }
 
     section.details-thumbnails img:hover {
-        transform: scale(3);
+        transform: scale(2.5) translate(25%, -25%);
     }
 }
 
@@ -608,4 +624,8 @@ section.client-reviews .cr-card__options {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+}
+
+.link {
+    text-decoration: underline;
 }

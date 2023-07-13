@@ -59,7 +59,7 @@ function layBreadcrumbs($pageTitle = null, $separator = '&raquo;', $home = 'Home
     foreach ($crumbs as $x => $crumb) {
         $name = ucwords(str_replace("phpmotors", $home, $crumb));
         $path .= $crumb . '/';
-        $breadcrumbs[] = "<a href=\"$path\">$name</a>";
+        $breadcrumbs[] = "<a href=\"$path\"> $name </a>";
     }
 
     # add this page title to the end
@@ -208,7 +208,7 @@ function buildProductReviewsDisplay($reviewsArray, $invId, $text = '', $debug = 
     }
 
     # build review form
-    $reviews .= buildReviewForm($_SESSION['clientData']['clientId'], $invId, $text);
+    $reviews .= buildReviewForm($invId, $text);
 
     # show existing reviews
     if (count($reviewsArray) < 1) {
@@ -237,16 +237,17 @@ function buildProductReviewsDisplay($reviewsArray, $invId, $text = '', $debug = 
     return $reviews;
 }
 
-function buildReviewForm($clientId, $invId, $reviewText = '') {
+function buildReviewForm($invId, $reviewText = '') {
     # build a review form
     
     # if not logged in, no form for you
-    if (!$_SESSION['loggedin']) {
+    if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
         $form = "<p class='notice'>You must log in first to leave a review. ";
-        $form .= "<a href='/phpmotors/accounts/?action=login'>Log In</a>";
+        $form .= "<a href='/phpmotors/accounts/?action=login' class='link'>Log In</a>";
         $form .= "</p>";
     } else {
         # you logged in, you get form
+        $clientId = $_SESSION['clientData']['clientId'];
         $form = "<form class='review-form' method='post' action='/phpmotors/reviews/'>";
         $form .= "<label for='screenName'>Screen Name: </label>";
         $form .= "<input readonly type='text' id='screenName' name='screenName' value=".substr($_SESSION['clientData']['clientFirstname'], 0, 1) . $_SESSION['clientData']['clientLastname']."> <br>";
@@ -282,7 +283,7 @@ function loadVehicleDetailsTemplate($invInfo, $thumbsHTML = null, $debug = false
     # information of vehicle
     $details = "<section class='details-content'>";
     $details .= "<h2>Vehicle Details</h2>";
-    $details .= "<aside class='spacer'>Scroll to bottom for user reviews</aside>";
+    $details .= "<aside class='spacer mobile'>Scroll to bottom for user reviews</aside>";
     # price
     $details .= "<div class='dc__price flex-row'>";
     $details .= "<span>Price: </span>";
