@@ -298,12 +298,12 @@ function loadVehicleDetailsTemplate($invInfo, $thumbsHTML = null, $debug = false
     $makeModel = $invInfo['invMake'].' '.$invInfo['invModel'];
 
     # image of vehicle
-    $figure = "<figure class='details-image'>";
+    $figure = "<div class='details-image'>";
     $altText =  "A pretty cool " . $makeModel;
-    $figure .= "<img src='$invInfo[imgPath]' alt='$altText'>";
+    $figure .= "<img class='details-image' src='$invInfo[imgPath]' alt='$altText'>";
     //$figcaption = "<figcaption>words words words</figcaption>";
     //$figure .= $figcaption;
-    $figure .= "</figure>";
+    $figure .= "</div>";
 
     # information of vehicle
     $details = "<section class='details-content'>";

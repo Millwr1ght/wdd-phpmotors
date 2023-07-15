@@ -207,6 +207,11 @@ form fieldset {
     border: none;
 }
 
+form textarea {
+    width:100%;
+    max-width: 500px;
+}
+
 input:read-only,
 textarea:read-only {
   border: 0;
@@ -259,7 +264,7 @@ div.hero-banner #hero-call {
 /* home page main sections  */
 div.main-content {
     display: block;
-    width: calc(100vw - 2em);
+    width: auto;
 }
 
 section.reviews li {
@@ -340,14 +345,15 @@ li hr {
 /* li span.vc__price {} */
 
 /* vehicle details page */
-figure.details-image {
+div.details-image {
     margin: 0;
-    width: calc(100vw - 2em);
+    display: relative;
 }
-figure.details-image img {
+div.details-image img {
     max-width: 100%;
-    max-height: 100%;
-    object-fit: scale-down;
+    width: 100%;
+    
+    object-fit: contain;
 }
 
 section.details-thumbnails .dt__imgbox {
