@@ -41,7 +41,7 @@
             <input type="hidden" name="action" value="logged-in">
         </form>
 
-        <p><a class="register-link" href="/phpmotors/accounts/?action=register">Not a member yet? <strong>Sign up here!</strong></a></p>
+        <p><a class="register-link link" href="/phpmotors/accounts/?action=register">Not a member yet? <strong>Sign up here!</strong></a></p>
     </main>
 
     <?php require_once $_SERVER['DOCUMENT_ROOT'] . '/phpmotors/common/footer.php'; ?>

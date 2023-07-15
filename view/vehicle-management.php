@@ -23,8 +23,8 @@ if (isset($_SESSION['message'])) {
     <main>
         <h1><?=$title?></h1>
         
-        <a href="/phpmotors/vehicles/?action=add-vehicle">Add Vehicle</a> <br> <br>
-        <a href="/phpmotors/vehicles/?action=add-class">Add Classification</a> <br> <br>
+        <a class="link" href="/phpmotors/vehicles/?action=add-vehicle">Add Vehicle</a> <br> <br>
+        <a class="link" href="/phpmotors/vehicles/?action=add-class">Add Classification</a> <br> <br>
 
         <section class="divider-top">
             <?= (isset($message)) ? $message : '' ; ?>

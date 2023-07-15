@@ -48,25 +48,25 @@
                         <div class="card-img">
                             <img src="/phpmotors/images/upgrades/flux-cap.png" alt="A flux capacitor">
                         </div>
-                        <a href="/phpmotors/upgrades?q=flux-cap">Flux Capacitor</a>
+                        <a class="link" href="/phpmotors/upgrades?q=flux-cap">Flux Capacitor</a>
                     </div>
                     <div class="card">
                         <div class="card-img">
                             <img src="/phpmotors/images/upgrades/flame.jpg" alt="flame decal">
                         </div>
-                        <a href="/phpmotors/upgrades?q=decals">Flame Decals</a>
+                        <a class="link" href="/phpmotors/upgrades?q=decals">Flame Decals</a>
                     </div>
                     <div class="card">
                         <div class="card-img">
                             <img src="/phpmotors/images/upgrades/bumper_sticker.jpg" alt="a bumper sticker that reads 'hello world'">
                         </div>
-                        <a href="/phpmotors/upgrades?q=stickers">Bumper Stickers</a>
+                        <a class="link" href="/phpmotors/upgrades?q=stickers">Bumper Stickers</a>
                     </div>
                     <div class="card">
                         <div class="card-img">
                             <img src="/phpmotors/images/upgrades/hub-cap.jpg" alt="A hubcap">
                         </div>
-                        <a href="/phpmotors/upgrades?q=hubcaps">Hubcaps</a>
+                        <a class="link" href="/phpmotors/upgrades?q=hubcaps">Hubcaps</a>
                     </div>
                 </div>
             </section>

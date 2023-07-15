@@ -53,6 +53,12 @@ a:active {
     padding: 0;
 }
 
+a.link:hover,
+a.link:focus {
+    color: var(--dark-blue);
+}
+
+
 button {
     background-color: inherit;
     margin: auto;
@@ -118,6 +124,7 @@ nav a {
 nav a.active,
 nav a:hover {
     margin: -6px 0;
+    padding: 20px 16px;
 }
 
 nav a:hover {
@@ -127,7 +134,7 @@ nav a:hover {
 
 nav a.active {
     background-color: var(--dark-blue);
-    color: black;
+    color: var(--dark-gray);
 }
 
 span.breadcrumbs {
@@ -170,7 +177,6 @@ main {
 }
 
 /* p.notice {} */
-
 
 /* content styling */
 
@@ -384,6 +390,14 @@ section.client-reviews .cr-card__options {
 section.client-reviews .cr-card__options a {
     padding-left: 0.5em;
 }
+
+
+table#inventoryDisplay {
+    max-width: 100%;
+    width: 100%;
+    text-align: left;
+}
+
 
 /* medium (and large) screen styling ----------------*/
 @media only screen and (min-width: 768px) {

@@ -15,7 +15,7 @@
             throw $e;
 
             //redirect to 500 error page
-            header('Location: /phpmotors/index.php?action=500');
+            header('Location: /phpmotors/?action=500');
             exit;
         }
     }

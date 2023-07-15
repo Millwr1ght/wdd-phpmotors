@@ -32,8 +32,8 @@ if (isset($_SESSION['message'])) {
             
             <?= buildClientInfo($_SESSION['clientData']) ?>
 
-            <p><a href='/phpmotors/accounts/?action=mod' title='Click to modify'>Modify Account Details</a></p>
-            <p><a href='/phpmotors/accounts/?action=del' title='Click to delete'>Delete Account</a></p>
+            <p><a class="link" href='/phpmotors/accounts/?action=mod' title='Click to modify'>Modify Account Details</a></p>
+            <p><a class="link" href='/phpmotors/accounts/?action=del' title='Click to delete'>Delete Account</a></p>
 
         </section>
 

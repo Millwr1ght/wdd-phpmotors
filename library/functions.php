@@ -41,7 +41,9 @@ function buildNav($classifications){
     $nav_list = "<nav class='nav-top' id='page-nav'>"; 
     $nav_list .= "<a href='/phpmotors/' title='View the PHP Motors home page'>Home</a>";
     foreach ($classifications as $classification) {
-        $nav_list .= "<a href='/phpmotors/vehicles/?action=classification&classificationName=".urlencode($classification['classificationName'])."' title='View our $classification[classificationName] product line'>$classification[classificationName]</a>";
+        # test if this iteration is current page (or category? for like vehicle details pages? maybe?), if so, add class='active'
+        $class = (false) ? " class='active'" : '' ; # TODO: unhardcode this condition
+        $nav_list .= "<a href='/phpmotors/vehicles/?action=classification&classificationName=".urlencode($classification['classificationName'])."' title='View our $classification[classificationName] product line'$class>$classification[classificationName]</a>";
     }
     $nav_list .= "</nav>";
     return $nav_list;
@@ -59,7 +61,7 @@ function layBreadcrumbs($pageTitle = null, $separator = '&raquo;', $home = 'Home
     foreach ($crumbs as $x => $crumb) {
         $name = ucwords(str_replace("phpmotors", $home, $crumb));
         $path .= $crumb . '/';
-        $breadcrumbs[] = "<a href=\"$path\"> $name </a>";
+        $breadcrumbs[] = "<a class='link' href=\"$path\"> $name </a>";
     }
 
     # add this page title to the end
@@ -163,7 +165,7 @@ function buildInventoryCard($cardId, $cardTitle, $cardThumbnail, $cardPrice) {
     $card .= "<div class='flex-row'>";
     $card .= "<span class='vc__price'>$$cardPrice&nbsp;</span>";
     $card .= "<span class='vc__details'>";
-    $card .= "<a href='/phpmotors/vehicles/?action=details&invId=$cardId'>More Details &rarr;</a>";
+    $card .= "<a class='link' href='/phpmotors/vehicles/?action=details&invId=$cardId'>More Details &rarr;</a>";
     $card .= "</span>";
     $card .= "</div>";
     
@@ -178,7 +180,7 @@ function buildImageDisplay($imageArray) {
     foreach ($imageArray as $image) {
          $id .= '<li>';
          $id .= "<img src='$image[imgPath]' title='$image[invMake] $image[invModel] image on PHP Motors.com' alt='$image[invMake] $image[invModel] image on PHP Motors.com'>";
-         $id .= "<p><a href='/phpmotors/uploads?action=delete&imgId=$image[imgId]&filename=$image[imgName]' title='Delete the image'>Delete $image[imgName]</a></p>";
+         $id .= "<p><a class='link' href='/phpmotors/uploads?action=delete&imgId=$image[imgId]&filename=$image[imgName]' title='Delete the image'>Delete $image[imgName]</a></p>";
          $id .= '</li>';
     }
     $id .= '</ul>';
@@ -205,8 +207,8 @@ function buildClientReviewsDisplay($reviewsArray) {
             $reviews .= "<span class='cr-card__date'> on $reviewDate</span>";
             $reviews .= "</div>";
             $reviews .= "<div class='cr-card__options'>";
-            $reviews .= "<a href='/phpmotors/reviews?action=edit-review&reviewId=$review[reviewId]' title='Click to edit'>Edit</a>";
-            $reviews .= "<a href='/phpmotors/reviews?action=delete&reviewId=$review[reviewId]' title='Click to delete'>Delete</a>";
+            $reviews .= "<a class='link' href='/phpmotors/reviews?action=edit-review&reviewId=$review[reviewId]' title='Click to edit'>Edit</a>";
+            $reviews .= "<a class='link' href='/phpmotors/reviews?action=delete&reviewId=$review[reviewId]' title='Click to delete'>Delete</a>";
             $reviews .= "</div>";
             $reviews .= "</li>";
         }
@@ -266,7 +268,7 @@ function buildReviewForm($invId, $reviewText = '') {
     # if not logged in, no form for you
     if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
         $form = "<p class='notice'>You must log in first to leave a review. ";
-        $form .= "<a href='/phpmotors/accounts/?action=login' class='link'>Log In</a>";
+        $form .= "<a class='link' href='/phpmotors/accounts/?action=login' class='link'>Log In</a>";
         $form .= "</p>";
     } else {
         # you logged in, you get form
