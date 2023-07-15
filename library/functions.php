@@ -268,7 +268,7 @@ function buildReviewForm($invId, $reviewText = '') {
     # if not logged in, no form for you
     if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
         $form = "<p class='notice'>You must log in first to leave a review. ";
-        $form .= "<a class='link' href='/phpmotors/accounts/?action=login' class='link'>Log In</a>";
+        $form .= "<a class='link' href='/phpmotors/accounts/?action=login' class='login-link'>Log In</a>";
         $form .= "</p>";
     } else {
         # you logged in, you get form

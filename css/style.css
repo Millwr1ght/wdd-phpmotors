@@ -207,6 +207,11 @@ form fieldset {
     border: none;
 }
 
+input:read-only,
+textarea:read-only {
+  border: 0;
+}
+
 /* home page */
 /* home page hero banner */
 div.hero-banner,
@@ -640,6 +645,6 @@ table#inventoryDisplay {
     justify-content: space-between;
 }
 
-.link {
+.login-link {
     text-decoration: underline;
 }
